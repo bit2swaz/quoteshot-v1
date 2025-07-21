@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+"use client";
+
 import React from "react";
 import { useTheme } from "@/lib/theme";
 
