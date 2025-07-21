@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const LandingPage: React.FC = () => {
   return (
@@ -11,9 +12,12 @@ const LandingPage: React.FC = () => {
         <p className="mb-8 text-lg font-medium text-gray-700 sm:text-2xl dark:text-gray-300">
           Your AI-powered design studio for social media.
         </p>
-        <button className="transform rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:from-purple-600 hover:to-indigo-600 focus:ring-4 focus:ring-purple-300 focus:outline-none active:scale-95 dark:focus:ring-indigo-700">
+        <Link
+          href="/app"
+          className="inline-block transform rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:from-purple-600 hover:to-indigo-600 focus:ring-4 focus:ring-purple-300 focus:outline-none active:scale-95 dark:focus:ring-indigo-700"
+        >
           Create Quote Now
-        </button>
+        </Link>
       </section>
 
       {/* Features Section Placeholder */}
