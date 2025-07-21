@@ -29,7 +29,7 @@
     "paths": {
       "~/*": ["./src/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/components/*": ["./src/app/_components/*"]
+      "@/components/*": ["./src/components/*"]
     }
   },
   "include": [
