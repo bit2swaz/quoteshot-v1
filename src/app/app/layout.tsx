@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { QuoteContext } from "@/lib/quote-context";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [quoteText, setQuoteText] = useState("Your Quote Here");
 
   return (
     <div className="flex h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
@@ -46,7 +48,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         className={`fixed inset-y-0 left-0 z-50 w-64 flex-shrink-0 transform overflow-y-auto bg-white p-4 shadow-md transition-transform duration-300 ease-in-out dark:bg-gray-800 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:relative md:block md:translate-x-0`}
       >
         <div className="flex h-full flex-col">
-          <h2 className="mb-4 text-xl font-semibold">App Sidebar</h2>
+          <h2 className="mb-4 text-xl font-semibold">Quote Text Editor</h2>
+          <textarea
+            className="w-full flex-grow resize-none rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            value={quoteText}
+            onChange={(e) => setQuoteText(e.target.value)}
+            placeholder="Enter your quote here..."
+          />
           {/* Placeholder for app-specific sidebar content */}
           <ul className="space-y-2">
             <li>
@@ -71,7 +79,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
       {/* Main Content Area */}
       <main className="flex flex-1 flex-col overflow-hidden md:ml-0">
-        <div className="flex-1 overflow-y-auto p-4">{children}</div>
+        <div className="flex-1 overflow-y-auto p-4">
+          <QuoteContext.Provider value={{ quoteText, setQuoteText }}>
+            {children}
+          </QuoteContext.Provider>
+        </div>
       </main>
     </div>
   );
