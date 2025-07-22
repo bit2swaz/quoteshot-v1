@@ -1,6 +1,5 @@
 import { HydrateClient } from "~/trpc/server";
 import ThemeToggle from "@/components/ThemeToggle";
-import UserOnboarding from "@/components/UserOnboarding";
 import LandingPage from "@/components/LandingPage";
 
 export default async function Home() {
@@ -10,9 +9,7 @@ export default async function Home() {
         <div className="absolute top-4 right-4">
           <ThemeToggle />
         </div>
-        <UserOnboarding>
-          <LandingPage />
-        </UserOnboarding>
+        <LandingPage />
       </main>
     </HydrateClient>
   );
