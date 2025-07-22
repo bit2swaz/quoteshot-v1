@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
@@ -60,14 +61,17 @@ const Canvas: React.FC<CanvasComponentProps> = ({
       const relLeft = absLeft - containerBox.left;
       const relTop = absTop - containerBox.top;
 
+      // Use getClientRect to get accurate dimensions
+      const textRect = textNode.getClientRect();
+
       const textarea = document.createElement("textarea");
       textarea.value = quoteText;
       textarea.style.position = "absolute";
-      textarea.style.left = `${relLeft}px`;
-      textarea.style.top = `${relTop}px`;
-      textarea.style.width = `${textNode.width()}px`;
-      textarea.style.height = `${textNode.height()}px`;
-      textarea.style.fontSize = `${textNode.fontSize()}px`;
+      textarea.style.left = `${relLeft + (textRect.x - textNode.absolutePosition().x)}px`;
+      textarea.style.top = `${relTop + (textRect.y - textNode.absolutePosition().y)}px`;
+      textarea.style.width = `${textRect.width}px`;
+      textarea.style.height = `${textRect.height}px`;
+      textarea.style.fontSize = `${textNode.fontSize() * textNode.scaleX()}px`;
       textarea.style.fontFamily = textNode.fontFamily();
       textarea.style.color = textNode.fill() as string;
       textarea.style.backgroundColor = "transparent";
@@ -81,6 +85,8 @@ const Canvas: React.FC<CanvasComponentProps> = ({
       textarea.style.verticalAlign = textNode.verticalAlign() || "top";
       textarea.style.whiteSpace = "pre-wrap"; // Important for text wrapping
       textarea.style.wordBreak = "break-word";
+      textarea.style.transformOrigin = "left top";
+      textarea.style.transform = `rotateZ(${textNode.rotation()}deg)`;
 
       containerRef.current.appendChild(textarea);
 
@@ -121,9 +127,13 @@ const Canvas: React.FC<CanvasComponentProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative h-full w-full flex-1 rounded-lg bg-gray-200 shadow-inner dark:bg-gray-700"
+      className="pointer-events-auto relative h-full w-full flex-1 rounded-lg bg-gray-200 shadow-inner dark:bg-gray-700"
     >
-      <Stage width={stageDimensions.width} height={stageDimensions.height}>
+      <Stage
+        width={stageDimensions.width}
+        height={stageDimensions.height}
+        onDblClick={() => console.log("Stage Double Clicked")}
+      >
         <Layer>
           <KonvaText
             text={quoteText}
@@ -139,9 +149,15 @@ const Canvas: React.FC<CanvasComponentProps> = ({
             }
             align="center"
             verticalAlign="middle"
-            onDblClick={() => setIsEditing(true)}
+            onDblClick={() => {
+              console.log("KonvaText Double Clicked");
+              setIsEditing(true);
+            }}
             visible={!isEditing} // Hide Konva text when editing
             ref={textNodeRef}
+            perfectDrawEnabled={false} // May help with event issues
+            listening={true} // Ensure it's listening for events
+            // Removed width, height, and draggable properties
           />
         </Layer>
       </Stage>
