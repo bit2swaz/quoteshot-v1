@@ -138,35 +138,20 @@ const Canvas: React.FC<CanvasComponentProps> = ({
         <Layer listening={true}>
           {stageDimensions.width > 0 && stageDimensions.height > 0 && (
             <>
-              {/* Rect for more reliable double-click detection (now always rendered) */}
+              {/* Debugging Rect for Layer event propagation */}
               <Rect
-                x={stageDimensions.width / 2 - tempKonvaText.width() / 2}
-                y={stageDimensions.height / 2 - tempKonvaText.height() / 2}
-                width={tempKonvaText.width()}
-                height={tempKonvaText.height()}
-                fill="red" // Still red for debugging. Change to "transparent" once working.
+                x={0}
+                y={0}
+                width={stageDimensions.width}
+                height={stageDimensions.height}
+                fill="rgba(0,0,255,0.5)" // Make it full screen and visible
                 onDblClick={() => {
-                  console.log("KonvaText Rect Double Clicked");
+                  console.log("DEBUGGING Layer Rect Double Clicked");
                   setIsEditing(true);
                 }}
-                visible={!isEditing}
                 listening={true}
               />
-              <KonvaText
-                text={quoteText}
-                fontSize={40}
-                fill="#333333"
-                x={stageDimensions.width / 2}
-                y={stageDimensions.height / 2}
-                offsetX={tempKonvaText.width() / 2}
-                offsetY={tempKonvaText.height() / 2}
-                align="center"
-                verticalAlign="middle"
-                visible={!isEditing} // Hide Konva text when editing
-                ref={textNodeRef}
-                perfectDrawEnabled={false} // May help with event issues
-                listening={true} // Ensure it's listening for events
-              />
+              {/* KonvaText is temporarily removed for debugging event propagation. */}
             </>
           )}
         </Layer>
