@@ -22,6 +22,13 @@ const Canvas: React.FC<CanvasComponentProps> = ({
   });
   const [isEditing, setIsEditing] = useState(false);
 
+  // Calculate Konva text metrics outside of render to avoid recalculations
+  const konvaTextConfig = {
+    text: quoteText,
+    fontSize: 40,
+  };
+  const tempKonvaText = new Konva.Text(konvaTextConfig);
+
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
@@ -129,60 +136,39 @@ const Canvas: React.FC<CanvasComponentProps> = ({
         onDblClick={() => console.log("Stage Double Clicked")}
       >
         <Layer listening={true}>
-          {" "}
-          {/* Ensure Layer is listening */}
-          {/* TEMPORARY: Debugging Rect for Layer event propagation */}
-          <Rect
-            x={0}
-            y={0}
-            width={stageDimensions.width}
-            height={stageDimensions.height}
-            fill="rgba(0,0,255,0.2)" // Visible for debugging
-            onDblClick={() =>
-              console.log("TEMPORARY Layer Rect Double Clicked")
-            }
-            listening={true}
-          />
-          {/* Original Invisible Rect for more reliable double-click detection */}
-          <Rect
-            x={
-              stageDimensions.width / 2 -
-              new Konva.Text({ text: quoteText, fontSize: 40 }).width() / 2
-            }
-            y={
-              stageDimensions.height / 2 -
-              new Konva.Text({ text: quoteText, fontSize: 40 }).height() / 2
-            }
-            width={new Konva.Text({ text: quoteText, fontSize: 40 }).width()}
-            height={new Konva.Text({ text: quoteText, fontSize: 40 }).height()}
-            fill="red" // Changed to red for debugging
-            onDblClick={() => {
-              console.log("KonvaText Rect Double Clicked");
-              setIsEditing(true);
-            }}
-            visible={!isEditing}
-            listening={true}
-          />
-          <KonvaText
-            text={quoteText}
-            fontSize={40}
-            fill="#333333"
-            x={stageDimensions.width / 2}
-            y={stageDimensions.height / 2}
-            offsetX={
-              new Konva.Text({ text: quoteText, fontSize: 40 }).width() / 2
-            }
-            offsetY={
-              new Konva.Text({ text: quoteText, fontSize: 40 }).height() / 2
-            }
-            align="center"
-            verticalAlign="middle"
-            // Removed onDblClick from KonvaText, now handled by Rect
-            visible={!isEditing} // Hide Konva text when editing
-            ref={textNodeRef}
-            perfectDrawEnabled={false} // May help with event issues
-            listening={true} // Ensure it's listening for events
-          />
+          {stageDimensions.width > 0 && stageDimensions.height > 0 && (
+            <>
+              {/* Rect for more reliable double-click detection (now always rendered) */}
+              <Rect
+                x={stageDimensions.width / 2 - tempKonvaText.width() / 2}
+                y={stageDimensions.height / 2 - tempKonvaText.height() / 2}
+                width={tempKonvaText.width()}
+                height={tempKonvaText.height()}
+                fill="red" // Still red for debugging. Change to "transparent" once working.
+                onDblClick={() => {
+                  console.log("KonvaText Rect Double Clicked");
+                  setIsEditing(true);
+                }}
+                visible={!isEditing}
+                listening={true}
+              />
+              <KonvaText
+                text={quoteText}
+                fontSize={40}
+                fill="#333333"
+                x={stageDimensions.width / 2}
+                y={stageDimensions.height / 2}
+                offsetX={tempKonvaText.width() / 2}
+                offsetY={tempKonvaText.height() / 2}
+                align="center"
+                verticalAlign="middle"
+                visible={!isEditing} // Hide Konva text when editing
+                ref={textNodeRef}
+                perfectDrawEnabled={false} // May help with event issues
+                listening={true} // Ensure it's listening for events
+              />
+            </>
+          )}
         </Layer>
       </Stage>
     </div>
