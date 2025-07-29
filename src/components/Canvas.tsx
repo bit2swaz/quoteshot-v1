@@ -129,31 +129,37 @@ const Canvas: React.FC<CanvasComponentProps> = ({
     <div
       ref={containerRef}
       className="pointer-events-auto relative h-full w-full flex-1 rounded-lg bg-gray-200 shadow-inner dark:bg-gray-700"
+      onDoubleClick={() => setIsEditing(true)}
     >
-      <Stage
-        width={stageDimensions.width}
-        height={stageDimensions.height}
-        onDblClick={() => console.log("Stage Double Clicked")}
-      >
+      <Stage width={stageDimensions.width} height={stageDimensions.height}>
         <Layer listening={true}>
-          {stageDimensions.width > 0 && stageDimensions.height > 0 && (
-            <>
-              {/* Debugging Rect for Layer event propagation */}
-              <Rect
-                x={0}
-                y={0}
-                width={stageDimensions.width}
-                height={stageDimensions.height}
-                fill="rgba(0,0,255,0.5)" // Make it full screen and visible
-                onDblClick={() => {
-                  console.log("DEBUGGING Layer Rect Double Clicked");
-                  setIsEditing(true);
-                }}
-                listening={true}
-              />
-              {/* KonvaText is temporarily removed for debugging event propagation. */}
-            </>
-          )}
+          {/* Rect for more reliable double-click detection (now always rendered) */}
+          <Rect
+            x={stageDimensions.width / 2 - tempKonvaText.width() / 2}
+            y={stageDimensions.height / 2 - tempKonvaText.height() / 2}
+            width={tempKonvaText.width()}
+            height={tempKonvaText.height()}
+            fill="transparent" // Set back to transparent
+            // Removed onDblClick from Rect - now handled by parent div
+            visible={!isEditing}
+            listening={true}
+          />
+          <KonvaText
+            text={quoteText}
+            fontSize={40}
+            fill="#333333"
+            x={stageDimensions.width / 2}
+            y={stageDimensions.height / 2}
+            offsetX={tempKonvaText.width() / 2}
+            offsetY={tempKonvaText.height() / 2}
+            align="center"
+            verticalAlign="middle"
+            // Removed onDblClick from KonvaText - now handled by parent div
+            visible={!isEditing} // Hide Konva text when editing
+            ref={textNodeRef}
+            perfectDrawEnabled={false} // May help with event issues
+            listening={true} // Ensure it's listening for events
+          />
         </Layer>
       </Stage>
     </div>
