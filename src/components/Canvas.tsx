@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Stage, Layer, Text as KonvaText } from "react-konva";
+import { Stage, Layer, Text as KonvaText, Rect } from "react-konva";
 import Konva from "konva";
 
 export interface CanvasComponentProps {
@@ -48,29 +48,23 @@ const Canvas: React.FC<CanvasComponentProps> = ({
       const stage = textNode.getStage();
       if (!stage) return;
 
-      // Calculate the position of the text node relative to the container div
-      const textPosition = textNode.absolutePosition();
-      const stageBox = stage.container().getBoundingClientRect();
-      const containerBox = containerRef.current.getBoundingClientRect();
-
-      // Calculate the absolute position of the Konva text on the screen
-      const absLeft = stageBox.left + textPosition.x;
-      const absTop = stageBox.top + textPosition.y;
-
-      // Calculate the position relative to the parent containerRef
-      const relLeft = absLeft - containerBox.left;
-      const relTop = absTop - containerBox.top;
-
-      // Use getClientRect to get accurate dimensions
+      // Use getClientRect to get accurate dimensions including transforms
       const textRect = textNode.getClientRect();
 
       const textarea = document.createElement("textarea");
       textarea.value = quoteText;
       textarea.style.position = "absolute";
-      textarea.style.left = `${relLeft + (textRect.x - textNode.absolutePosition().x)}px`;
-      textarea.style.top = `${relTop + (textRect.y - textNode.absolutePosition().y)}px`;
+
+      // Calculate position relative to the container for textarea
+      const stageRect = stage.container().getBoundingClientRect();
+      const containerRect = containerRef.current.getBoundingClientRect();
+
+      // Adjusted position for textarea based on textNodeRect and container offset
+      textarea.style.left = `${stageRect.left + textRect.x - containerRect.left}px`;
+      textarea.style.top = `${stageRect.top + textRect.y - containerRect.top}px`;
       textarea.style.width = `${textRect.width}px`;
       textarea.style.height = `${textRect.height}px`;
+
       textarea.style.fontSize = `${textNode.fontSize() * textNode.scaleX()}px`;
       textarea.style.fontFamily = textNode.fontFamily();
       textarea.style.color = textNode.fill() as string;
@@ -134,7 +128,41 @@ const Canvas: React.FC<CanvasComponentProps> = ({
         height={stageDimensions.height}
         onDblClick={() => console.log("Stage Double Clicked")}
       >
-        <Layer>
+        <Layer listening={true}>
+          {" "}
+          {/* Ensure Layer is listening */}
+          {/* TEMPORARY: Debugging Rect for Layer event propagation */}
+          <Rect
+            x={0}
+            y={0}
+            width={stageDimensions.width}
+            height={stageDimensions.height}
+            fill="rgba(0,0,255,0.2)" // Visible for debugging
+            onDblClick={() =>
+              console.log("TEMPORARY Layer Rect Double Clicked")
+            }
+            listening={true}
+          />
+          {/* Original Invisible Rect for more reliable double-click detection */}
+          <Rect
+            x={
+              stageDimensions.width / 2 -
+              new Konva.Text({ text: quoteText, fontSize: 40 }).width() / 2
+            }
+            y={
+              stageDimensions.height / 2 -
+              new Konva.Text({ text: quoteText, fontSize: 40 }).height() / 2
+            }
+            width={new Konva.Text({ text: quoteText, fontSize: 40 }).width()}
+            height={new Konva.Text({ text: quoteText, fontSize: 40 }).height()}
+            fill="red" // Changed to red for debugging
+            onDblClick={() => {
+              console.log("KonvaText Rect Double Clicked");
+              setIsEditing(true);
+            }}
+            visible={!isEditing}
+            listening={true}
+          />
           <KonvaText
             text={quoteText}
             fontSize={40}
@@ -149,15 +177,11 @@ const Canvas: React.FC<CanvasComponentProps> = ({
             }
             align="center"
             verticalAlign="middle"
-            onDblClick={() => {
-              console.log("KonvaText Double Clicked");
-              setIsEditing(true);
-            }}
+            // Removed onDblClick from KonvaText, now handled by Rect
             visible={!isEditing} // Hide Konva text when editing
             ref={textNodeRef}
             perfectDrawEnabled={false} // May help with event issues
             listening={true} // Ensure it's listening for events
-            // Removed width, height, and draggable properties
           />
         </Layer>
       </Stage>
