@@ -1,46 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import React from "react";
-import { Stage, Layer, Rect } from "react-konva";
-import { useCanvasStore } from "~/store/canvasStore";
-import DraggableText from "~/components/editor/DraggableText";
 
-// A simple component for just the background
-const BackgroundCanvas = () => {
-  const { width, height, backgroundColor } = useCanvasStore();
-  return (
-    <Stage width={width} height={height}>
-      <Layer>
-        <Rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={backgroundColor}
-        />
-      </Layer>
-    </Stage>
-  );
-};
+// Dynamically import our new master Editor component with SSR turned off.
+// This is the key to fixing the "Can't resolve 'canvas'" error.
+const Editor = dynamic(() => import("~/components/editor/Editor"), {
+  ssr: false,
+  // Show a loading skeleton while the editor is loading on the client
+  loading: () => (
+    <div className="h-[1080px] w-[1080px] animate-pulse rounded-xl bg-gray-700"></div>
+  ),
+});
 
 export default function EditorPage() {
-  const { width, height } = useCanvasStore();
-
   return (
     <div className="flex h-[calc(100vh-4rem)] w-full items-center justify-center bg-gray-800/50">
-      {/* This is our main container. It's relative so the absolute positioned
-        draggable text stays within it.
-      */}
-      <div
-        className="relative overflow-hidden rounded-xl shadow-2xl"
-        style={{ width: `${width}px`, height: `${height}px` }}
-      >
-        {/* The Konva canvas for the background is at the bottom layer */}
-        <BackgroundCanvas />
-
-        {/* The DraggableText component sits on top */}
-        <DraggableText />
-      </div>
+      <Editor />
     </div>
   );
 }
