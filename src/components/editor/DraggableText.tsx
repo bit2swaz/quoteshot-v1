@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
+import React, { useRef } from "react"; // Import useRef
 import Draggable from "react-draggable";
 import { useCanvasStore } from "~/store/canvasStore";
 
 const DraggableText = () => {
-  // Get all the state and actions we need from the store
   const {
     text,
     fontFamily,
@@ -17,25 +16,30 @@ const DraggableText = () => {
     setTextPosition,
   } = useCanvasStore();
 
-  // This function is called when the user stops dragging
+  // Create a ref to attach to the DOM node
+  const nodeRef = useRef(null);
+
   const handleDrag = (e: any, data: { x: number; y: number }) => {
-    // Update the text's position in our Zustand store
     setTextPosition({ x: data.x, y: data.y });
   };
 
   return (
+    // Pass the nodeRef to the Draggable component
     <Draggable
-      bounds="parent" // Restricts dragging to the parent container
-      position={{ x: textX, y: textY }} // Controlled position from the store
-      onStop={handleDrag} // Call our function when dragging stops
+      nodeRef={nodeRef} // This is the crucial fix for React 19
+      bounds="parent"
+      position={{ x: textX, y: textY }}
+      onStop={handleDrag}
     >
+      {/* Attach the ref to the actual element being dragged */}
       <div
+        ref={nodeRef}
         className="absolute cursor-move p-5"
         style={{
           fontFamily: fontFamily,
           fontSize: `${fontSize}px`,
           color: textColor,
-          width: "880px", // 1080px (canvas width) - 200px padding
+          width: "880px",
           textAlign: "center",
         }}
       >

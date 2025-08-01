@@ -4,8 +4,8 @@ import React from "react";
 import { Stage, Layer, Rect } from "react-konva";
 import { useCanvasStore } from "~/store/canvasStore";
 import DraggableText from "~/components/editor/DraggableText";
+import { useHasMounted } from "~/hooks/useHasMounted"; // Import our new hook
 
-// A simple component for just the background, defined locally
 const BackgroundCanvas = () => {
   const { width, height, backgroundColor } = useCanvasStore();
   return (
@@ -23,20 +23,25 @@ const BackgroundCanvas = () => {
   );
 };
 
-// This is our main editor component that combines the background and text
 const Editor = () => {
   const { width, height } = useCanvasStore();
+  const hasMounted = useHasMounted(); // Use the hook
+
+  // If the component has not mounted yet, we can render nothing or a loader.
+  // This prevents the DraggableText from rendering prematurely.
+  if (!hasMounted) {
+    return null; // or return a loading spinner
+  }
 
   return (
     <div
-      id="export-container" // We'll use this ID later for exporting the image
+      id="export-container"
       className="relative overflow-hidden rounded-xl shadow-2xl"
       style={{ width: `${width}px`, height: `${height}px` }}
     >
-      {/* The Konva canvas for the background is at the bottom layer */}
       <BackgroundCanvas />
 
-      {/* The DraggableText component sits on top */}
+      {/* Only render DraggableText once we know we are on the client */}
       <DraggableText />
     </div>
   );
