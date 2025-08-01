@@ -19,19 +19,13 @@ const Canvas = () => {
     setTextPosition,
   } = useCanvasStore();
 
-  const handleDragStart = () => {
-    console.log("DRAG START");
-  };
-
   const handleDragEnd = (e: KonvaEventObject<DragEvent>) => {
-    console.log("DRAG END");
     setTextPosition({
       x: e.target.x(),
       y: e.target.y(),
     });
   };
 
-  // This function changes the cursor to a pointer on hover
   const handleMouseEnter = (e: KonvaEventObject<MouseEvent>) => {
     const container = e.target.getStage()?.container();
     if (container) {
@@ -39,7 +33,6 @@ const Canvas = () => {
     }
   };
 
-  // This function reverts the cursor back
   const handleMouseLeave = (e: KonvaEventObject<MouseEvent>) => {
     const container = e.target.getStage()?.container();
     if (container) {
@@ -48,15 +41,13 @@ const Canvas = () => {
   };
 
   return (
-    // The Stage component is the canvas itself.
-    // We add a rounded border and shadow directly here.
     <Stage
       width={width}
       height={height}
       className="rounded-xl bg-white shadow-2xl"
     >
       <Layer>
-        {/* Background Rectangle */}
+        {/* Background */}
         <Rect
           x={0}
           y={0}
@@ -64,18 +55,18 @@ const Canvas = () => {
           height={height}
           fill={backgroundColor}
         />
-        {/* Quote Text */}
+        {/* The Draggable Text */}
         <Text
           text={text}
           x={textX}
           y={textY}
           fontSize={fontSize}
-          fontFamily={fontFamily}
+          fontFamily={fontFamily} // This will now work because the font is pre-loaded
           fill={textColor}
           width={width - 200}
+          padding={20}
           align="center"
           draggable
-          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
