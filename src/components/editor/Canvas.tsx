@@ -5,9 +5,7 @@ import { Stage, Layer, Rect, Text } from "react-konva";
 import type { KonvaEventObject } from "konva/lib/Node";
 import { useCanvasStore } from "~/store/canvasStore";
 
-// This is our main canvas component.
 const Canvas = () => {
-  // Pulling state and actions from our Zustand store.
   const {
     width,
     height,
@@ -18,46 +16,72 @@ const Canvas = () => {
     fontFamily,
     textX,
     textY,
-    setTextPosition, // Get the action from the store
+    setTextPosition,
   } = useCanvasStore();
 
-  // This function is called when the user stops dragging the text.
+  const handleDragStart = () => {
+    console.log("DRAG START");
+  };
+
   const handleDragEnd = (e: KonvaEventObject<DragEvent>) => {
-    // Save the new, final position to our Zustand store.
+    console.log("DRAG END");
     setTextPosition({
       x: e.target.x(),
       y: e.target.y(),
     });
   };
 
+  // This function changes the cursor to a pointer on hover
+  const handleMouseEnter = (e: KonvaEventObject<MouseEvent>) => {
+    const container = e.target.getStage()?.container();
+    if (container) {
+      container.style.cursor = "pointer";
+    }
+  };
+
+  // This function reverts the cursor back
+  const handleMouseLeave = (e: KonvaEventObject<MouseEvent>) => {
+    const container = e.target.getStage()?.container();
+    if (container) {
+      container.style.cursor = "default";
+    }
+  };
+
   return (
-    <div className="overflow-hidden rounded-xl shadow-2xl">
-      <Stage width={width} height={height}>
-        <Layer>
-          {/* Background Rectangle */}
-          <Rect
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            fill={backgroundColor}
-          />
-          {/* Quote Text */}
-          <Text
-            text={text}
-            x={textX}
-            y={textY}
-            fontSize={fontSize}
-            fontFamily={fontFamily}
-            fill={textColor}
-            width={width - 200} // Give it some padding
-            align="center"
-            draggable // This makes the text draggable
-            onDragEnd={handleDragEnd} // This saves the position after dragging
-          />
-        </Layer>
-      </Stage>
-    </div>
+    // The Stage component is the canvas itself.
+    // We add a rounded border and shadow directly here.
+    <Stage
+      width={width}
+      height={height}
+      className="rounded-xl bg-white shadow-2xl"
+    >
+      <Layer>
+        {/* Background Rectangle */}
+        <Rect
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          fill={backgroundColor}
+        />
+        {/* Quote Text */}
+        <Text
+          text={text}
+          x={textX}
+          y={textY}
+          fontSize={fontSize}
+          fontFamily={fontFamily}
+          fill={textColor}
+          width={width - 200}
+          align="center"
+          draggable
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
+      </Layer>
+    </Stage>
   );
 };
 
