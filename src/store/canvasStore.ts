@@ -18,7 +18,6 @@ interface CanvasActions {
   setWidth: (width: number) => void;
   setHeight: (height: number) => void;
   setText: (text: string) => void;
-  // New action to update the text's x and y coordinates
   setTextPosition: (position: { x: number; y: number }) => void;
 }
 
@@ -32,13 +31,13 @@ export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
   fontSize: 64,
   fontFamily: "Inter",
   textColor: "#ffffff",
-  textX: 540,
-  textY: 480,
+  // Simplified initial position. Top-left area.
+  textX: 100,
+  textY: 100,
 
   // --- ACTIONS ---
   setWidth: (width) => set({ width }),
   setHeight: (height) => set({ height }),
   setText: (text) => set({ text }),
-  // Implementation for our new action
   setTextPosition: (position) => set({ textX: position.x, textY: position.y }),
 }));
