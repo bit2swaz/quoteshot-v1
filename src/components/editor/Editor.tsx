@@ -4,7 +4,7 @@ import React from "react";
 import { Stage, Layer, Rect } from "react-konva";
 import { useCanvasStore } from "~/store/canvasStore";
 import DraggableText from "~/components/editor/DraggableText";
-import { useHasMounted } from "~/hooks/useHasMounted"; // Import our new hook
+import { useHasMounted } from "~/hooks/useHasMounted";
 
 const BackgroundCanvas = () => {
   const { width, height, backgroundColor } = useCanvasStore();
@@ -25,12 +25,10 @@ const BackgroundCanvas = () => {
 
 const Editor = () => {
   const { width, height } = useCanvasStore();
-  const hasMounted = useHasMounted(); // Use the hook
+  const hasMounted = useHasMounted();
 
-  // If the component has not mounted yet, we can render nothing or a loader.
-  // This prevents the DraggableText from rendering prematurely.
   if (!hasMounted) {
-    return null; // or return a loading spinner
+    return null;
   }
 
   return (
@@ -40,8 +38,6 @@ const Editor = () => {
       style={{ width: `${width}px`, height: `${height}px` }}
     >
       <BackgroundCanvas />
-
-      {/* Only render DraggableText once we know we are on the client */}
       <DraggableText />
     </div>
   );
