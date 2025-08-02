@@ -1,16 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client";
 
 import React, { useRef } from "react";
-import { Stage, Layer, Rect } from "react-konva";
+import { Stage, Layer, Rect, Image as KonvaImage } from "react-konva";
 import Draggable from "react-draggable";
 import { useCanvasStore } from "~/store/canvasStore";
+import useImage from "use-image";
+
+// This component renders the background, which can be a solid color or an image.
+const Background = () => {
+  const { width, height, backgroundColor, backgroundImage } = useCanvasStore();
+  const [image] = useImage(backgroundImage || "", "anonymous");
+
+  return (
+    <>
+      {/* Solid color rectangle is always there as a fallback */}
+      <Rect x={0} y={0} width={width} height={height} fill={backgroundColor} />
+
+      {/* If an image is loaded, display it on top */}
+      {image && (
+        <KonvaImage image={image} x={0} y={0} width={width} height={height} />
+      )}
+    </>
+  );
+};
 
 const Editor = () => {
   const {
     width,
     height,
-    backgroundColor,
     text,
     fontFamily,
     fontSize,
@@ -36,13 +55,7 @@ const Editor = () => {
       <div className="absolute top-0 left-0 z-0">
         <Stage width={width} height={height}>
           <Layer>
-            <Rect
-              x={0}
-              y={0}
-              width={width}
-              height={height}
-              fill={backgroundColor}
-            />
+            <Background />
           </Layer>
         </Stage>
       </div>
@@ -64,6 +77,8 @@ const Editor = () => {
               color: textColor,
               width: "880px",
               textAlign: "center",
+              // Add a subtle text shadow to make text more readable on busy images
+              textShadow: "0px 2px 4px rgba(0,0,0,0.5)",
             }}
           >
             {text}
