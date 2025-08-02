@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@prisma/client": "^6.5.0",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tanstack/react-query": "^5.69.0",
@@ -31,6 +32,7 @@
     "html-to-image": "^1.11.13",
     "jszip": "^3.10.1",
     "konva": "^9.3.22",
+    "lucide-react": "^0.536.0",
     "next": "^15.2.3",
     "next-auth": "5.0.0-beta.25",
     "react": "^19.0.0",
