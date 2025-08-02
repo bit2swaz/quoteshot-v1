@@ -17,6 +17,11 @@ interface CanvasActions {
   setHeight: (height: number) => void;
   setText: (text: string) => void;
   setTextPosition: (position: { x: number; y: number }) => void;
+  // New actions for styling
+  setFontSize: (fontSize: number) => void;
+  setFontFamily: (fontFamily: string) => void;
+  setTextColor: (textColor: string) => void;
+  setBackgroundColor: (backgroundColor: string) => void;
 }
 
 export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
@@ -30,8 +35,14 @@ export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
   textX: 100,
   textY: 100,
 
+  // --- ACTIONS ---
   setWidth: (width) => set({ width }),
   setHeight: (height) => set({ height }),
   setText: (text) => set({ text }),
   setTextPosition: (position) => set({ textX: position.x, textY: position.y }),
+  // Implementation for new style actions
+  setFontSize: (fontSize) => set({ fontSize }),
+  setFontFamily: (fontFamily) => set({ fontFamily }),
+  setTextColor: (textColor) => set({ textColor }),
+  setBackgroundColor: (backgroundColor) => set({ backgroundColor }),
 }));
