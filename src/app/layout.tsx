@@ -32,7 +32,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Quoteshot",
+  title: "QuoteShot",
   description: "Create aesthetic quote cards in seconds.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
