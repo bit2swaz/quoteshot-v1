@@ -3,7 +3,6 @@
 import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
 
-// Define presets with descriptive names
 const presets = [
   { name: "Post (Square)", subtitle: "1080x1080", width: 1080, height: 1080 },
   {
@@ -16,9 +15,19 @@ const presets = [
 ];
 
 const WelcomeModal = () => {
-  const { setWidth, setHeight, closeWelcomeModal } = useCanvasStore();
+  const { setWidth, setHeight, closeWelcomeModal, resetState } =
+    useCanvasStore();
 
-  const handleSelect = (width: number, height: number) => {
+  // This handler is for continuing with the saved state
+  const handleContinue = (width: number, height: number) => {
+    setWidth(width);
+    setHeight(height);
+    closeWelcomeModal();
+  };
+
+  // This handler resets the state before setting the new size
+  const handleStartNew = (width: number, height: number) => {
+    resetState(); // Reset the canvas to defaults
     setWidth(width);
     setHeight(height);
     closeWelcomeModal();
@@ -26,37 +35,43 @@ const WelcomeModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-2xl rounded-xl border border-gray-700 bg-gray-800 p-8 shadow-2xl">
+      <div className="w-full max-w-4xl rounded-xl border border-gray-700 bg-gray-800 p-8 shadow-2xl">
         <h2 className="text-center text-3xl font-bold text-white">
-          What are you creating?
+          Welcome Back!
         </h2>
         <p className="mt-2 text-center text-gray-400">
-          Choose a canvas size to start.
+          Start a new creation or continue where you left off.
         </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {/* Map over the functional presets */}
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Map over the presets to create new cards */}
           {presets.map((preset) => (
-            <button
+            <div
               key={preset.name}
-              onClick={() => handleSelect(preset.width, preset.height)}
-              className="rounded-lg bg-gray-700 p-6 text-left transition-all duration-200 hover:scale-105 hover:bg-indigo-600"
+              className="flex flex-col justify-between rounded-lg bg-gray-700 p-5"
             >
-              <h3 className="text-lg font-semibold text-white">
-                {preset.name}
-              </h3>
-              <p className="text-sm text-gray-400">{preset.subtitle}</p>
-            </button>
+              <div>
+                <h3 className="text-lg font-semibold text-white">
+                  {preset.name}
+                </h3>
+                <p className="text-sm text-gray-400">{preset.subtitle}</p>
+              </div>
+              <div className="mt-6 space-y-2">
+                <button
+                  onClick={() => handleStartNew(preset.width, preset.height)}
+                  className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500"
+                >
+                  Start New
+                </button>
+                <button
+                  onClick={() => handleContinue(preset.width, preset.height)}
+                  className="w-full rounded-lg bg-gray-600 px-4 py-2 text-sm font-semibold text-gray-300 transition hover:bg-gray-500"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
           ))}
-
-          {/* The non-functional "Custom" button */}
-          <button
-            disabled
-            className="cursor-not-allowed rounded-lg bg-gray-700 p-6 text-left opacity-50"
-          >
-            <h3 className="text-lg font-semibold text-white">Custom Size</h3>
-            <p className="text-sm text-gray-400">Coming soon</p>
-          </button>
         </div>
       </div>
     </div>
