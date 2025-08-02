@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // src/components/editor/controls/BackgroundControl.tsx
@@ -5,7 +6,6 @@
 
 import React, { useState } from "react";
 import { useCanvasStore } from "~/store/canvasStore";
-import Image from "next/image";
 
 const BackgroundControl = () => {
   const { backgroundColor, setBackgroundColor, setBackgroundImage } =
@@ -93,7 +93,7 @@ const BackgroundControl = () => {
               onClick={() => setBackgroundImage(url)}
               className="aspect-square overflow-hidden rounded-md bg-gray-600"
             >
-              <Image
+              <img
                 src={url}
                 alt="Unsplash search result"
                 className="h-full w-full object-cover"
