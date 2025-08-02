@@ -3,7 +3,7 @@
 import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
 
-// Define our presets with descriptive names
+// Define presets with descriptive names
 const presets = [
   { name: "Post (Square)", subtitle: "1080x1080", width: 1080, height: 1080 },
   {
