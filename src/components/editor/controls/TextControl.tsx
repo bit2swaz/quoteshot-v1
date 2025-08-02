@@ -2,16 +2,38 @@
 
 import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
+import quotesData from "~/data/quotes.json"; // Import our new quotes data
 
 const TextControl = () => {
-  // Get the current text and the action to update it from the store
   const { text, setText } = useCanvasStore();
+
+  const handleGenerate = () => {
+    // Pick a random quote from the imported data
+    const randomIndex = Math.floor(Math.random() * quotesData.length);
+    const randomQuote = quotesData[randomIndex]?.quote;
+
+    if (randomQuote) {
+      // Update the text in the store with the new quote
+      setText(randomQuote);
+    }
+  };
 
   return (
     <div className="space-y-2">
-      <label htmlFor="quote-text" className="text-sm font-medium text-gray-300">
-        Quote Text
-      </label>
+      <div className="flex items-center justify-between">
+        <label
+          htmlFor="quote-text"
+          className="text-sm font-medium text-gray-300"
+        >
+          Quote Text
+        </label>
+        <button
+          onClick={handleGenerate}
+          className="rounded-md bg-indigo-900/50 px-3 py-1 text-xs font-semibold text-indigo-300 transition hover:bg-indigo-900"
+        >
+          Generate
+        </button>
+      </div>
       <textarea
         id="quote-text"
         rows={5}
