@@ -8,8 +8,8 @@ import {
   Caveat,
   Poppins,
 } from "next/font/google";
+import Footer from "~/components/layout/Footer";
 
-// Configure all the fonts we want to use
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
 const montserrat = Montserrat({
@@ -32,7 +32,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "QuoteShot",
+  title: "Quoteshot",
   description: "Create aesthetic quote cards in seconds.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -43,12 +43,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Combine all font variable classes into the html tag
+    // Add `scroll-smooth` to enable smooth scrolling for anchor links
     <html
       lang="en"
-      className={`${inter.variable} ${lora.variable} ${montserrat.variable} ${playfair.variable} ${robotoMono.variable} ${caveat.variable} ${poppins.variable}`}
+      className={`scroll-smooth ${inter.variable} ${lora.variable} ${montserrat.variable} ${playfair.variable} ${robotoMono.variable} ${caveat.variable} ${poppins.variable}`}
     >
-      <body>{children}</body>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body className="bg-gray-900">
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
