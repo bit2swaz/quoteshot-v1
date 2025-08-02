@@ -1,11 +1,13 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
+// The state and action interfaces remain the same
 interface CanvasState {
   isWelcomeModalOpen: boolean;
   width: number;
   height: number;
   backgroundColor: string;
-  backgroundImage: string | null; // Can be a URL string or null
+  backgroundImage: string | null;
   text: string;
   fontSize: number;
   fontFamily: string;
@@ -24,36 +26,45 @@ interface CanvasActions {
   setFontFamily: (fontFamily: string) => void;
   setTextColor: (textColor: string) => void;
   setBackgroundColor: (backgroundColor: string) => void;
-  setBackgroundImage: (imageUrl: string) => void; // New action for images
-  clearBackgroundImage: () => void; // New action to remove the image
+  setBackgroundImage: (imageUrl: string) => void;
+  clearBackgroundImage: () => void;
 }
 
-export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
-  isWelcomeModalOpen: true,
-  width: 1080,
-  height: 1080,
-  backgroundColor: "#1a202c",
-  backgroundImage: null, // Default to no image
-  text: "The journey of a thousand miles begins with a single step.",
-  fontSize: 64,
-  fontFamily: "Inter",
-  textColor: "#ffffff",
-  textX: 100,
-  textY: 100,
+// We now wrap our store creation in the `persist` middleware
+export const useCanvasStore = create<CanvasState & CanvasActions>()(
+  persist(
+    (set) => ({
+      // The initial state is the same as before
+      isWelcomeModalOpen: true,
+      width: 1080,
+      height: 1080,
+      backgroundColor: "#1a202c",
+      backgroundImage: null,
+      text: "The journey of a thousand miles begins with a single step.",
+      fontSize: 64,
+      fontFamily: "Inter",
+      textColor: "#ffffff",
+      textX: 100,
+      textY: 100,
 
-  // --- ACTIONS ---
-  closeWelcomeModal: () => set({ isWelcomeModalOpen: false }),
-  setWidth: (width) => set({ width }),
-  setHeight: (height) => set({ height }),
-  setText: (text) => set({ text }),
-  setTextPosition: (position) => set({ textX: position.x, textY: position.y }),
-  setFontSize: (fontSize) => set({ fontSize }),
-  setFontFamily: (fontFamily) => set({ fontFamily }),
-  setTextColor: (textColor) => set({ textColor }),
-  // When setting a solid color, clear any existing background image.
-  setBackgroundColor: (backgroundColor) =>
-    set({ backgroundColor, backgroundImage: null }),
-  // When setting an image, it becomes the new background.
-  setBackgroundImage: (imageUrl) => set({ backgroundImage: imageUrl }),
-  clearBackgroundImage: () => set({ backgroundImage: null }),
-}));
+      // The actions are also the same
+      closeWelcomeModal: () => set({ isWelcomeModalOpen: false }),
+      setWidth: (width) => set({ width }),
+      setHeight: (height) => set({ height }),
+      setText: (text) => set({ text }),
+      setTextPosition: (position) =>
+        set({ textX: position.x, textY: position.y }),
+      setFontSize: (fontSize) => set({ fontSize }),
+      setFontFamily: (fontFamily) => set({ fontFamily }),
+      setTextColor: (textColor) => set({ textColor }),
+      setBackgroundColor: (backgroundColor) =>
+        set({ backgroundColor, backgroundImage: null }),
+      setBackgroundImage: (imageUrl) => set({ backgroundImage: imageUrl }),
+      clearBackgroundImage: () => set({ backgroundImage: null }),
+    }),
+    {
+      // Configuration for the persistence
+      name: "quoteshot-storage", // The key to use in localStorage
+    },
+  ),
+);
