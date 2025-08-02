@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface CanvasState {
+  isWelcomeModalOpen: boolean; // New state to control the modal
   width: number;
   height: number;
   backgroundColor: string;
@@ -13,11 +14,11 @@ interface CanvasState {
 }
 
 interface CanvasActions {
+  closeWelcomeModal: () => void; // New action to close the modal
   setWidth: (width: number) => void;
   setHeight: (height: number) => void;
   setText: (text: string) => void;
   setTextPosition: (position: { x: number; y: number }) => void;
-  // New actions for styling
   setFontSize: (fontSize: number) => void;
   setFontFamily: (fontFamily: string) => void;
   setTextColor: (textColor: string) => void;
@@ -25,6 +26,7 @@ interface CanvasActions {
 }
 
 export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
+  isWelcomeModalOpen: true, // Default to true so it shows on first load
   width: 1080,
   height: 1080,
   backgroundColor: "#1a202c",
@@ -36,11 +38,11 @@ export const useCanvasStore = create<CanvasState & CanvasActions>((set) => ({
   textY: 100,
 
   // --- ACTIONS ---
+  closeWelcomeModal: () => set({ isWelcomeModalOpen: false }),
   setWidth: (width) => set({ width }),
   setHeight: (height) => set({ height }),
   setText: (text) => set({ text }),
   setTextPosition: (position) => set({ textX: position.x, textY: position.y }),
-  // Implementation for new style actions
   setFontSize: (fontSize) => set({ fontSize }),
   setFontFamily: (fontFamily) => set({ fontFamily }),
   setTextColor: (textColor) => set({ textColor }),
