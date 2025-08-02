@@ -1,10 +1,34 @@
 import "~/styles/globals.css";
-import { Inter } from "next/font/google"; // Import the font loader
+import {
+  Inter,
+  Lora,
+  Montserrat,
+  Playfair_Display,
+  Roboto_Mono,
+  Caveat,
+  Poppins,
+} from "next/font/google";
 
-// Configure the font
-const inter = Inter({
+// Configure all the fonts we want to use
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-montserrat",
+});
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+});
+const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
+const poppins = Poppins({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
 });
 
 export const metadata = {
@@ -19,8 +43,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Apply the font class to the html element
-    <html lang="en" className={`${inter.variable}`}>
+    // Combine all font variable classes into the html tag
+    <html
+      lang="en"
+      className={`${inter.variable} ${lora.variable} ${montserrat.variable} ${playfair.variable} ${robotoMono.variable} ${caveat.variable} ${poppins.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
