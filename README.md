@@ -6,7 +6,7 @@ Quoteshot is a fast, focused, and frictionless web application for creating beau
 
 **[➡️ Live Demo Coming Soon\!](https://www.google.com/search?q=https://quoteshot.vercel.app)**
 
-_(Replace this with a real screenshot of your app)_
+_("public/demo.jpeg)_
 
 ---
 
