@@ -4,7 +4,7 @@
 
 Quoteshot is a fast, focused, and frictionless web application for creating beautiful quote cards in seconds. Perfect for your Instagram story, X feed, or just for yourself.
 
-**[➡️ Live Demo Coming Soon\!](https://quoteshot.vercel.app)**
+**[➡️ Live Demo Coming Soon\!](https://quoteshot-v1.vercel.app)**
 
 _![demo](public/demo.jpeg)_
 
