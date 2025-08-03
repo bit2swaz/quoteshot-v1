@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-// src/app/page.tsx
 "use client";
 
 import Link from "next/link";
