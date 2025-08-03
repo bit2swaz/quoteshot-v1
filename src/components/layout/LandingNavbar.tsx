@@ -7,9 +7,10 @@ const LandingNavbar = () => {
   return (
     <header className="fixed top-0 right-0 left-0 z-30 border-b border-gray-700/50 bg-gray-900/50 backdrop-blur-sm">
       <div className="container mx-auto flex items-center justify-between px-6 py-3">
-        {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-white">
-          QuoteShot
+        {/* Updated Logo */}
+        <Link href="/" className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600"></div>
+          <span className="text-2xl font-bold text-white">Quoteshot</span>
         </Link>
 
         {/* Desktop Navigation Links */}
