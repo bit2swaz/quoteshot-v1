@@ -3,6 +3,7 @@
 import React from "react";
 import ExportControl from "~/components/editor/controls/ExportControl";
 import { Menu, X } from "lucide-react";
+import Link from "next/link"; // Import the Link component
 
 const Navbar = ({
   isSidebarOpen,
@@ -18,13 +19,14 @@ const Navbar = ({
         <button onClick={toggleSidebar} className="text-white lg:hidden">
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        {/* Logo */}
-        <div className="flex items-center gap-3">
+
+        {/* Logo is now a clickable link to the homepage */}
+        <Link href="/" className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600"></div>
           <h1 className="hidden text-xl font-bold text-white sm:block">
-            QuoteShot
+            Quoteshot
           </h1>
-        </div>
+        </Link>
       </div>
       <div className="flex items-center gap-4">
         <ExportControl />
