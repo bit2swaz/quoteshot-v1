@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -31,39 +29,40 @@ interface CanvasState {
   textY: number;
 }
 
+// The CanvasActions interface is now simpler and more accurate.
 interface CanvasActions {
-  openWelcomeModal: () => void;
   closeWelcomeModal: () => void;
-  resetState: () => void; // New action to reset the canvas
+  resetState: () => void;
   setWidth: (width: number) => void;
   setHeight: (height: number) => void;
-  // ... other actions
+  setText: (text: string) => void;
+  setTextPosition: (position: { x: number; y: number }) => void;
+  setFontSize: (fontSize: number) => void;
+  setFontFamily: (fontFamily: string) => void;
+  setTextColor: (textColor: string) => void;
   setBackgroundColor: (backgroundColor: string) => void;
   setBackgroundImage: (imageUrl: string) => void;
+  clearBackgroundImage: () => void;
 }
 
-// We now wrap our store creation in the `persist` middleware
-export const useCanvasStore = create<
-  CanvasState & Omit<CanvasActions, "openWelcomeModal">
->()(
+// The generic type is now correct: `CanvasState & CanvasActions`
+export const useCanvasStore = create<CanvasState & CanvasActions>()(
   persist(
     (set) => ({
       ...initialState,
       isWelcomeModalOpen: true,
 
       // --- ACTIONS ---
-      openWelcomeModal: () => set({ isWelcomeModalOpen: true }),
       closeWelcomeModal: () => set({ isWelcomeModalOpen: false }),
-      // This action resets the canvas state to its initial values
       resetState: () => set(initialState),
       setWidth: (width) => set({ width }),
       setHeight: (height) => set({ height }),
-      setText: (text: any) => set({ text }),
-      setTextPosition: (position: { x: any; y: any }) =>
+      setText: (text) => set({ text }),
+      setTextPosition: (position) =>
         set({ textX: position.x, textY: position.y }),
-      setFontSize: (fontSize: any) => set({ fontSize }),
-      setFontFamily: (fontFamily: any) => set({ fontFamily }),
-      setTextColor: (textColor: any) => set({ textColor }),
+      setFontSize: (fontSize) => set({ fontSize }),
+      setFontFamily: (fontFamily) => set({ fontFamily }),
+      setTextColor: (textColor) => set({ textColor }),
       setBackgroundColor: (backgroundColor) =>
         set({ backgroundColor, backgroundImage: null }),
       setBackgroundImage: (imageUrl) => set({ backgroundImage: imageUrl }),
@@ -71,7 +70,6 @@ export const useCanvasStore = create<
     }),
     {
       name: "quoteshot-storage",
-      // We only want to persist the design, not the modal's open/closed state.
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
