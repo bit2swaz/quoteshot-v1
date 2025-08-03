@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
+// src/app/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,7 +8,7 @@ import { Image, Wind, Download, Type } from "lucide-react";
 import LandingNavbar from "~/components/layout/LandingNavbar";
 import React, { useEffect, useRef, useState } from "react";
 
-// --- Reusable Animated Card Component ---
+// --- Reusable Animated Card Component (with 3D Tilt) ---
 const AnimatedCard = ({
   children,
   className,
@@ -26,10 +28,8 @@ const AnimatedCard = ({
       const y = e.clientY - rect.top;
       const width = rect.width;
       const height = rect.height;
-
-      const rotateX = (y / height - 0.5) * -20; // Max rotation 10 degrees
-      const rotateY = (x / width - 0.5) * 20; // Max rotation 10 degrees
-
+      const rotateX = (y / height - 0.5) * -20;
+      const rotateY = (x / width - 0.5) * 20;
       card.style.setProperty("--card-rotate-x", `${rotateX}deg`);
       card.style.setProperty("--card-rotate-y", `${rotateY}deg`);
     };
@@ -55,17 +55,60 @@ const AnimatedCard = ({
   );
 };
 
-// --- Main Landing Page ---
+// --- Data for Showcase Gallery ---
+const examples = [
+  {
+    imageUrl:
+      "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1887&auto=format&fit=crop",
+    quote:
+      "The future belongs to those who believe in the beauty of their dreams.",
+    fontClass: "font-serif",
+  },
+  {
+    imageUrl:
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1950&auto=format&fit=crop",
+    quote: "It does not matter how slowly you go as long as you do not stop.",
+    fontClass: "font-sans",
+  },
+  {
+    imageUrl:
+      "https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1770&auto=format&fit=crop",
+    quote: "Simplicity is the ultimate sophistication.",
+    fontClass: "font-mono",
+  },
+];
+
+// --- Main Landing Page Component ---
 export default function LandingPage() {
   const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    document
+      .querySelectorAll(".scroll-animate")
+      .forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
       <LandingNavbar />
       <main className="overflow-x-hidden text-white">
         {/* Hero Section */}
-        <section className="relative flex min-h-screen flex-col items-center justify-center p-8 pt-20 text-center">
+        <section className="flex min-h-screen flex-col items-center justify-center p-8 pt-20 text-center">
+          {/* This wrapper div now correctly centers the content */}
           <div
             className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
           >
@@ -99,7 +142,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <section id="features" className="px-8 py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="mb-12 text-center">
+            <div className="scroll-animate mb-12 text-center">
               <h2 className="text-4xl font-bold text-white">
                 Everything you need. Nothing you don&apos;t.
               </h2>
@@ -108,62 +151,82 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              <AnimatedCard>
-                <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                    <Image size={24} />
+              <div
+                className="scroll-animate"
+                style={{ animationDelay: "0.1s" }}
+              >
+                <AnimatedCard>
+                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                      <Image size={24} />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-white">
+                      Dynamic Backgrounds
+                    </h3>
+                    <p className="text-gray-400">
+                      Choose from solid colors or millions of high-quality
+                      images from Unsplash.
+                    </p>
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-white">
-                    Dynamic Backgrounds
-                  </h3>
-                  <p className="text-gray-400">
-                    Choose from solid colors or millions of high-quality images
-                    from Unsplash.
-                  </p>
-                </div>
-              </AnimatedCard>
-              <AnimatedCard>
-                <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                    <Type size={24} />
+                </AnimatedCard>
+              </div>
+              <div
+                className="scroll-animate"
+                style={{ animationDelay: "0.2s" }}
+              >
+                <AnimatedCard>
+                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                      <Type size={24} />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-white">
+                      Curated Fonts
+                    </h3>
+                    <p className="text-gray-400">
+                      Access a hand-picked selection of beautiful fonts perfect
+                      for making a statement.
+                    </p>
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-white">
-                    Curated Fonts
-                  </h3>
-                  <p className="text-gray-400">
-                    Access a hand-picked selection of beautiful fonts perfect
-                    for making a statement.
-                  </p>
-                </div>
-              </AnimatedCard>
-              <AnimatedCard>
-                <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                    <Wind size={24} />
+                </AnimatedCard>
+              </div>
+              <div
+                className="scroll-animate"
+                style={{ animationDelay: "0.3s" }}
+              >
+                <AnimatedCard>
+                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                      <Wind size={24} />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-white">
+                      Instant Resizing
+                    </h3>
+                    <p className="text-gray-400">
+                      Start with presets for posts, stories, and more. Your
+                      design adapts instantly.
+                    </p>
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-white">
-                    Instant Resizing
-                  </h3>
-                  <p className="text-gray-400">
-                    Start with presets for posts, stories, and more. Your design
-                    adapts instantly.
-                  </p>
-                </div>
-              </AnimatedCard>
-              <AnimatedCard>
-                <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                    <Download size={24} />
+                </AnimatedCard>
+              </div>
+              <div
+                className="scroll-animate"
+                style={{ animationDelay: "0.4s" }}
+              >
+                <AnimatedCard>
+                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                      <Download size={24} />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-white">
+                      One-Click Export
+                    </h3>
+                    <p className="text-gray-400">
+                      Download your creation as a high-quality PNG or get all
+                      sizes in a single ZIP file.
+                    </p>
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-white">
-                    One-Click Export
-                  </h3>
-                  <p className="text-gray-400">
-                    Download your creation as a high-quality PNG or get all
-                    sizes in a single ZIP file.
-                  </p>
-                </div>
-              </AnimatedCard>
+                </AnimatedCard>
+              </div>
             </div>
           </div>
         </section>
@@ -171,7 +234,7 @@ export default function LandingPage() {
         {/* Showcase Gallery Section */}
         <section id="showcase" className="bg-gray-900/50 px-8 py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="mb-12 text-center">
+            <div className="scroll-animate mb-12 text-center">
               <h2 className="text-4xl font-bold text-white">
                 Designed for Impact.
               </h2>
@@ -179,8 +242,33 @@ export default function LandingPage() {
                 Create share-worthy content that stops the scroll.
               </p>
             </div>
+            {/* The showcase grid is now restored */}
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Showcase examples would go here, wrapped in AnimatedCard */}
+              {examples.map((example, index) => (
+                <div
+                  key={index}
+                  className="scroll-animate"
+                  style={{ animationDelay: `${(index + 1) * 0.15}s` }}
+                >
+                  <AnimatedCard>
+                    <div className="group relative aspect-[4/5] overflow-hidden rounded-lg">
+                      <img
+                        src={example.imageUrl}
+                        alt={`Example quote card ${index + 1}`}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute inset-0 flex items-center justify-center p-8">
+                        <p
+                          className={`text-center text-2xl font-semibold text-white ${example.fontClass} text-shadow-lg`}
+                        >
+                          &quot;{example.quote}&quot;
+                        </p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
+                </div>
+              ))}
             </div>
           </div>
         </section>
