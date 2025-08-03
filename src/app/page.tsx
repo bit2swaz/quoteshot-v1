@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-// src/app/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -108,7 +107,6 @@ export default function LandingPage() {
       <main className="overflow-x-hidden text-white">
         {/* Hero Section */}
         <section className="flex min-h-screen flex-col items-center justify-center p-8 pt-20 text-center">
-          {/* This wrapper div now correctly centers the content */}
           <div
             className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
           >
@@ -118,9 +116,10 @@ export default function LandingPage() {
             >
               Turn Words into Visuals.
             </h1>
+            {/* THE FIX IS HERE: Added mx-auto to center the paragraph block */}
             <p
               style={{ animationDelay: "0.4s" }}
-              className="animate-fade-in-up mt-6 max-w-2xl text-lg text-gray-300 md:text-xl"
+              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl"
             >
               Because your brilliant thoughts deserve to look better than a
               default tweet.
@@ -242,7 +241,6 @@ export default function LandingPage() {
                 Create share-worthy content that stops the scroll.
               </p>
             </div>
-            {/* The showcase grid is now restored */}
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {examples.map((example, index) => (
                 <div
