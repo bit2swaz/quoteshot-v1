@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 "use client";
@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import { useCanvasStore } from "~/store/canvasStore";
 import useImage from "use-image";
 
+// --- Internal Components ---
 const Background = () => {
   const { width, height, backgroundColor, backgroundImage } = useCanvasStore();
   const [image] = useImage(backgroundImage || "", "anonymous");
@@ -75,8 +76,9 @@ const EditorCanvas = () => {
   );
 };
 
-// This is the new viewport component that handles scaling
-export const ScalableCanvas = () => {
+// --- Main Exported Component ---
+// This is the component we will dynamically import. It handles scaling.
+const ClientOnlyEditor = () => {
   const { width: canvasWidth, height: canvasHeight } = useCanvasStore();
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -109,3 +111,5 @@ export const ScalableCanvas = () => {
     </div>
   );
 };
+
+export default ClientOnlyEditor;

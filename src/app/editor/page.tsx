@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
 import dynamic from "next/dynamic";
@@ -7,12 +5,10 @@ import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
 import WelcomeModal from "~/components/editor/WelcomeModal";
 
-// Dynamically import the new ScalableCanvas component
-const ScalableCanvas = dynamic(
-  () =>
-    import("~/components/editor/EditorCanvas").then(
-      (mod) => mod.ScalableCanvas,
-    ),
+// Dynamically import our new master client-side component.
+// This is the definitive fix for the build error.
+const ClientOnlyEditor = dynamic(
+  () => import("~/components/editor/ClientOnlyEditor"),
   {
     ssr: false,
     loading: () => (
@@ -26,7 +22,7 @@ export default function EditorPage() {
 
   return (
     <div className="h-full w-full">
-      <ScalableCanvas />
+      <ClientOnlyEditor />
       {isWelcomeModalOpen && <WelcomeModal />}
     </div>
   );
