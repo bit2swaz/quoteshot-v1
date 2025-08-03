@@ -10,7 +10,7 @@ const LandingNavbar = () => {
         {/* Updated Logo */}
         <Link href="/" className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600"></div>
-          <span className="text-2xl font-bold text-white">Quoteshot</span>
+          <span className="text-2xl font-bold text-white">QuoteShot</span>
         </Link>
 
         {/* Desktop Navigation Links */}
