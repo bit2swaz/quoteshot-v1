@@ -34,7 +34,7 @@ const poppins = Poppins({
 export const metadata = {
   title: "QuoteShot",
   description: "Create aesthetic quote cards in seconds.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.svg" }],
 };
 
 export default function RootLayout({
