@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 "use client";
 
+// ... (imports and component definitions remain the same)
 import Link from "next/link";
 import { Image, Wind, Download, Type } from "lucide-react";
 import LandingNavbar from "~/components/layout/LandingNavbar";
 import React, { useEffect, useRef, useState } from "react";
 
-// --- Reusable Animated Card Component (with 3D Tilt) ---
 const AnimatedCard = ({
   children,
   className,
@@ -16,11 +16,9 @@ const AnimatedCard = ({
   className?: string;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
-
     const handleMouseMove = (e: MouseEvent) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -32,21 +30,17 @@ const AnimatedCard = ({
       card.style.setProperty("--card-rotate-x", `${rotateX}deg`);
       card.style.setProperty("--card-rotate-y", `${rotateY}deg`);
     };
-
     const handleMouseLeave = () => {
       card.style.setProperty("--card-rotate-x", "0deg");
       card.style.setProperty("--card-rotate-y", "0deg");
     };
-
     card.addEventListener("mousemove", handleMouseMove);
     card.addEventListener("mouseleave", handleMouseLeave);
-
     return () => {
       card.removeEventListener("mousemove", handleMouseMove);
       card.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
-
   return (
     <div ref={cardRef} className={`card-3d h-full ${className}`}>
       {children}
@@ -54,7 +48,6 @@ const AnimatedCard = ({
   );
 };
 
-// --- Redefined FeatureCard to handle equal height ---
 const FeatureCard = ({
   icon,
   title,
@@ -75,7 +68,6 @@ const FeatureCard = ({
   </div>
 );
 
-// --- Data for Showcase Gallery ---
 const examples = [
   {
     imageUrl:
@@ -98,7 +90,6 @@ const examples = [
   },
 ];
 
-// --- Main Landing Page Component ---
 export default function LandingPage() {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
@@ -122,22 +113,22 @@ export default function LandingPage() {
   return (
     <>
       <LandingNavbar />
-      <main className="overflow-x-hidden text-white">
+      {/* Add top padding to the main content to account for the fixed navbar */}
+      <main className="overflow-x-hidden pt-16 text-white">
         {/* Hero Section */}
-        {/* THE FIX IS HERE: Replaced `min-h-screen` with specific padding `pt-40` and `pb-24` */}
-        <section className="flex flex-col items-center justify-center px-8 pt-40 pb-24 text-center">
+        <section className="flex flex-col items-center justify-center px-8 pt-24 pb-24 text-center">
           <div
             className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
           >
             <h1
               style={{ animationDelay: "0.2s" }}
-              className="animate-fade-in-up bg-gradient-to-r from-purple-400 to-indigo-600 bg-clip-text text-5xl font-extrabold text-transparent md:text-7xl"
+              className="animate-fade-in-up bg-gradient-to-r from-purple-400 to-indigo-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-7xl"
             >
               Turn Words into Visuals.
             </h1>
             <p
               style={{ animationDelay: "0.4s" }}
-              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl"
+              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-base text-gray-300 sm:text-lg md:text-xl"
             >
               Because your brilliant thoughts deserve to look better than a
               default tweet.
@@ -160,14 +151,15 @@ export default function LandingPage() {
         <section id="features" className="px-8 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="scroll-animate mb-12 text-center">
-              <h2 className="text-4xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
                 Everything you need. Nothing you don&apos;t.
               </h2>
               <p className="mt-4 text-gray-400">
                 A focused toolset to get you from idea to image in record time.
               </p>
             </div>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* The grid is now responsive */}
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
               <div
                 className="scroll-animate"
                 style={{ animationDelay: "0.1s" }}
@@ -224,7 +216,7 @@ export default function LandingPage() {
         <section id="showcase" className="bg-gray-900/50 px-8 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="scroll-animate mb-12 text-center">
-              <h2 className="text-4xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
                 Designed for Impact.
               </h2>
               <p className="mt-4 text-gray-400">
