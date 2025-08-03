@@ -48,11 +48,32 @@ const AnimatedCard = ({
   }, []);
 
   return (
-    <div ref={cardRef} className={`card-3d ${className}`}>
+    <div ref={cardRef} className={`card-3d h-full ${className}`}>
       {children}
     </div>
   );
 };
+
+// --- Redefined FeatureCard to handle equal height ---
+const FeatureCard = ({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) => (
+  <div className="flex h-full flex-col rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+    <div className="flex-shrink-0">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+        {icon}
+      </div>
+      <h3 className="mb-2 text-xl font-bold text-white">{title}</h3>
+    </div>
+    <p className="mt-auto text-gray-400">{description}</p>
+  </div>
+);
 
 // --- Data for Showcase Gallery ---
 const examples = [
@@ -82,7 +103,6 @@ export default function LandingPage() {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
-    // Intersection Observer for scroll animations
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -93,11 +113,9 @@ export default function LandingPage() {
       },
       { threshold: 0.1 },
     );
-
     document
       .querySelectorAll(".scroll-animate")
       .forEach((el) => observer.observe(el));
-
     return () => observer.disconnect();
   }, []);
 
@@ -116,7 +134,6 @@ export default function LandingPage() {
             >
               Turn Words into Visuals.
             </h1>
-            {/* THE FIX IS HERE: Added mx-auto to center the paragraph block */}
             <p
               style={{ animationDelay: "0.4s" }}
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl"
@@ -155,18 +172,11 @@ export default function LandingPage() {
                 style={{ animationDelay: "0.1s" }}
               >
                 <AnimatedCard>
-                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                      <Image size={24} />
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-white">
-                      Dynamic Backgrounds
-                    </h3>
-                    <p className="text-gray-400">
-                      Choose from solid colors or millions of high-quality
-                      images from Unsplash.
-                    </p>
-                  </div>
+                  <FeatureCard
+                    icon={<Image size={24} />}
+                    title="Dynamic Backgrounds"
+                    description="Choose from solid colors or millions of high-quality images from Unsplash."
+                  />
                 </AnimatedCard>
               </div>
               <div
@@ -174,18 +184,11 @@ export default function LandingPage() {
                 style={{ animationDelay: "0.2s" }}
               >
                 <AnimatedCard>
-                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                      <Type size={24} />
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-white">
-                      Curated Fonts
-                    </h3>
-                    <p className="text-gray-400">
-                      Access a hand-picked selection of beautiful fonts perfect
-                      for making a statement.
-                    </p>
-                  </div>
+                  <FeatureCard
+                    icon={<Type size={24} />}
+                    title="Curated Fonts"
+                    description="Access a hand-picked selection of beautiful fonts perfect for making a statement."
+                  />
                 </AnimatedCard>
               </div>
               <div
@@ -193,18 +196,11 @@ export default function LandingPage() {
                 style={{ animationDelay: "0.3s" }}
               >
                 <AnimatedCard>
-                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                      <Wind size={24} />
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-white">
-                      Instant Resizing
-                    </h3>
-                    <p className="text-gray-400">
-                      Start with presets for posts, stories, and more. Your
-                      design adapts instantly.
-                    </p>
-                  </div>
+                  <FeatureCard
+                    icon={<Wind size={24} />}
+                    title="Instant Resizing"
+                    description="Start with presets for posts, stories, and more. Your design adapts instantly."
+                  />
                 </AnimatedCard>
               </div>
               <div
@@ -212,18 +208,11 @@ export default function LandingPage() {
                 style={{ animationDelay: "0.4s" }}
               >
                 <AnimatedCard>
-                  <div className="h-full rounded-lg border border-gray-700 bg-gray-800/50 p-6">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
-                      <Download size={24} />
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-white">
-                      One-Click Export
-                    </h3>
-                    <p className="text-gray-400">
-                      Download your creation as a high-quality PNG or get all
-                      sizes in a single ZIP file.
-                    </p>
-                  </div>
+                  <FeatureCard
+                    icon={<Download size={24} />}
+                    title="One-Click Export"
+                    description="Download your creation as a high-quality PNG or get all sizes in a single ZIP file."
+                  />
                 </AnimatedCard>
               </div>
             </div>
