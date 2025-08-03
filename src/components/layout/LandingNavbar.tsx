@@ -9,7 +9,7 @@ const LandingNavbar = () => {
       <div className="container mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-white">
-          Quoteshot
+          QuoteShot
         </Link>
 
         {/* Desktop Navigation Links */}
