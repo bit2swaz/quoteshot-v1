@@ -1,51 +1,22 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import TextControl from "~/components/editor/controls/TextControl";
 import StyleControl from "~/components/editor/controls/StyleControl";
 import BackgroundControl from "~/components/editor/controls/BackgroundControl";
 
-const Sidebar = () => {
-  // This useEffect will add the animation class to the elements
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up");
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    document
-      .querySelectorAll(".sidebar-animate")
-      .forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
+const Sidebar = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   return (
-    <aside className="fixed top-16 left-0 z-10 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6">
+    // Use translate to slide in/out on mobile, and fixed position on desktop
+    <aside
+      className={`fixed top-16 left-0 z-20 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+    >
       <div className="space-y-6">
-        <div className="sidebar-animate" style={{ animationDelay: "0.1s" }}>
-          <TextControl />
-        </div>
-        <div
-          className="sidebar-animate h-px bg-gray-700"
-          style={{ animationDelay: "0.2s" }}
-        ></div>
-        <div className="sidebar-animate" style={{ animationDelay: "0.3s" }}>
-          <StyleControl />
-        </div>
-        <div
-          className="sidebar-animate h-px bg-gray-700"
-          style={{ animationDelay: "0.4s" }}
-        ></div>
-        <div className="sidebar-animate" style={{ animationDelay: "0.5s" }}>
-          <BackgroundControl />
-        </div>
+        <TextControl />
+        <div className="h-px bg-gray-700"></div>
+        <StyleControl />
+        <div className="h-px bg-gray-700"></div>
+        <BackgroundControl />
       </div>
     </aside>
   );
