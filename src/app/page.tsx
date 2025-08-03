@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
+// src/app/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -124,7 +125,8 @@ export default function LandingPage() {
       <LandingNavbar />
       <main className="overflow-x-hidden text-white">
         {/* Hero Section */}
-        <section className="flex min-h-screen flex-col items-center justify-center p-8 pt-20 text-center">
+        {/* THE FIX IS HERE: Replaced `min-h-screen` with specific padding `pt-40` and `pb-24` */}
+        <section className="flex flex-col items-center justify-center px-8 pt-40 pb-24 text-center">
           <div
             className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
           >
