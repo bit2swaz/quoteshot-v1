@@ -64,6 +64,7 @@ const EditorCanvas = () => {
               width: width - width * 0.1,
               textAlign: "center",
               textShadow: "0px 2px 4px rgba(0,0,0,0.5)",
+              whiteSpace: "pre-wrap", // THE FIX IS HERE
             }}
           >
             {text}
@@ -75,7 +76,6 @@ const EditorCanvas = () => {
 };
 
 // --- Main Exported Component ---
-// This is the component we will dynamically import. It handles scaling.
 const ClientOnlyEditor = () => {
   const { width: canvasWidth, height: canvasHeight } = useCanvasStore();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,12 +89,9 @@ const ClientOnlyEditor = () => {
       const scaleY = (clientHeight - 48) / canvasHeight;
       setScale(Math.min(scaleX, scaleY, 1));
     };
-
     updateScale();
     const resizeObserver = new ResizeObserver(updateScale);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
+    if (containerRef.current) resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
   }, [canvasWidth, canvasHeight]);
 
