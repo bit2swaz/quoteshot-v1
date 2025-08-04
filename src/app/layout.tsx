@@ -8,7 +8,7 @@ import {
   Caveat,
   Poppins,
 } from "next/font/google";
-import Footer from "~/components/layout/Footer";
+// We no longer import Footer here
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
@@ -32,9 +32,9 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "QuoteShot",
+  title: "Quoteshot",
   description: "Create aesthetic quote cards in seconds.",
-  icons: [{ rel: "icon", url: "/favicon.svg" }],
+  icons: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
 };
 
 export default function RootLayout({
@@ -43,7 +43,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Add `scroll-smooth` to enable smooth scrolling for anchor links
     <html
       lang="en"
       className={`scroll-smooth ${inter.variable} ${lora.variable} ${montserrat.variable} ${playfair.variable} ${robotoMono.variable} ${caveat.variable} ${poppins.variable}`}
@@ -53,7 +52,7 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900">
         {children}
-        <Footer />
+        {/* The Footer component has been removed from here */}
       </body>
     </html>
   );
