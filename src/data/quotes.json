@@ -1,42 +1,17 @@
 [
-  {
-    "quote": "The only way to do great work is to love what you do.",
-    "author": "Steve Jobs"
-  },
-  {
-    "quote": "The journey of a thousand miles begins with a single step.",
-    "author": "Lao Tzu"
-  },
-  {
-    "quote": "That which does not kill us makes us stronger.",
-    "author": "Friedrich Nietzsche"
-  },
-  {
-    "quote": "Life is what happens when you're busy making other plans.",
-    "author": "John Lennon"
-  },
-  {
-    "quote": "When the going gets tough, the tough get going.",
-    "author": "Joe Kennedy"
-  },
-  {
-    "quote": "You must be the change you wish to see in the world.",
-    "author": "Mahatma Gandhi"
-  },
-  {
-    "quote": "You only live once, but if you do it right, once is enough.",
-    "author": "Mae West"
-  },
-  {
-    "quote": "Strive not to be a success, but rather to be of value.",
-    "author": "Albert Einstein"
-  },
-  {
-    "quote": "The best way to predict the future is to invent it.",
-    "author": "Alan Kay"
-  },
-  {
-    "quote": "It is never too late to be what you might have been.",
-    "author": "George Eliot"
-  }
+  { "quote": "The only way to do great work is to love what you do.", "author": "Steve Jobs" },
+  { "quote": "The journey of a thousand miles begins with a single step.", "author": "Lao Tzu" },
+  { "quote": "That which does not kill us makes us stronger.", "author": "Friedrich Nietzsche" },
+  { "quote": "Life is what happens when you're busy making other plans.", "author": "John Lennon" },
+  { "quote": "You must be the change you wish to see in the world.", "author": "Mahatma Gandhi" },
+  { "quote": "Strive not to be a success, but rather to be of value.", "author": "Albert Einstein" },
+  { "quote": "The best way to predict the future is to invent it.", "author": "Alan Kay" },
+  { "quote": "It is never too late to be what you might have been.", "author": "George Eliot" },
+  { "quote": "Everything you can imagine is real.", "author": "Pablo Picasso" },
+  { "quote": "The secret of getting ahead is getting started.", "author": "Mark Twain" },
+  { "quote": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", "author": "Ralph Waldo Emerson" },
+  { "quote": "In three words I can sum up everything I've learned about life: it goes on.", "author": "Robert Frost" },
+  { "quote": "The only impossible journey is the one you never begin.", "author": "Tony Robbins" },
+  { "quote": "Act as if what you do makes a difference. It does.", "author": "William James" },
+  { "quote": "Success is not final, failure is not fatal: it is the courage to continue that counts.", "author": "Winston Churchill" }
 ]
