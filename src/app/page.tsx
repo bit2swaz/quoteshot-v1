@@ -7,6 +7,7 @@ import { Image, Wind, Download, Type } from "lucide-react";
 import LandingNavbar from "~/components/layout/LandingNavbar";
 import React, { useEffect, useRef, useState } from "react";
 import MobileBlocker from "~/components/layout/MobileBlocker";
+import Footer from "~/components/layout/Footer";
 
 const AnimatedCard = ({
   children,
@@ -255,6 +256,7 @@ export default function LandingPage() {
             </div>
           </section>
         </main>
+        <Footer />
       </div>
 
       <div className="lg:hidden">
