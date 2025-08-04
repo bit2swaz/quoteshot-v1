@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Image, Wind, Download, Type } from "lucide-react";
 import LandingNavbar from "~/components/layout/LandingNavbar";
 import React, { useEffect, useRef, useState } from "react";
+import MobileBlocker from "~/components/layout/MobileBlocker";
 
 const AnimatedCard = ({
   children,
@@ -111,147 +112,154 @@ export default function LandingPage() {
 
   return (
     <>
-      <LandingNavbar />
-      {/* Add top padding to the main content to account for the fixed navbar */}
-      <main className="overflow-x-hidden pt-16 text-white">
-        {/* Hero Section */}
-        <section className="flex flex-col items-center justify-center px-8 pt-24 pb-24 text-center">
-          <div
-            className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
-          >
-            <h1
-              style={{ animationDelay: "0.2s" }}
-              className="animate-fade-in-up bg-gradient-to-r from-purple-400 to-indigo-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-7xl"
-            >
-              Turn Words into Visuals.
-            </h1>
-            <p
-              style={{ animationDelay: "0.4s" }}
-              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-base text-gray-300 sm:text-lg md:text-xl"
-            >
-              Because your brilliant thoughts deserve to look better than a
-              default tweet.
-            </p>
+      <div className="hidden lg:block">
+        <LandingNavbar />
+        {/* Add top padding to the main content to account for the fixed navbar */}
+        <main className="overflow-x-hidden pt-16 text-white">
+          {/* Hero Section */}
+          <section className="flex flex-col items-center justify-center px-8 pt-24 pb-24 text-center">
             <div
-              style={{ animationDelay: "0.6s" }}
-              className="animate-fade-in-up mt-10"
+              className={`transition-opacity duration-1000 ${isMounted ? "opacity-100" : "opacity-0"}`}
             >
-              <Link
-                href="/editor"
-                className="inline-block transform rounded-lg bg-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:scale-110 hover:bg-indigo-500 active:scale-100"
-              >
-                Create Quote Now &rarr;
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section id="features" className="px-8 py-20">
-          <div className="mx-auto max-w-6xl">
-            <div className="scroll-animate mb-12 text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Everything you need. Nothing you don&apos;t.
-              </h2>
-              <p className="mt-4 text-gray-400">
-                A focused toolset to get you from idea to image in record time.
-              </p>
-            </div>
-            {/* The grid is now responsive */}
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              <div
-                className="scroll-animate"
-                style={{ animationDelay: "0.1s" }}
-              >
-                <AnimatedCard>
-                  <FeatureCard
-                    icon={<Image size={24} />}
-                    title="Dynamic Backgrounds"
-                    description="Choose from solid colors or millions of high-quality images from Unsplash."
-                  />
-                </AnimatedCard>
-              </div>
-              <div
-                className="scroll-animate"
+              <h1
                 style={{ animationDelay: "0.2s" }}
+                className="animate-fade-in-up bg-gradient-to-r from-purple-400 to-indigo-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-7xl"
               >
-                <AnimatedCard>
-                  <FeatureCard
-                    icon={<Type size={24} />}
-                    title="Curated Fonts"
-                    description="Access a hand-picked selection of beautiful fonts perfect for making a statement."
-                  />
-                </AnimatedCard>
-              </div>
-              <div
-                className="scroll-animate"
-                style={{ animationDelay: "0.3s" }}
-              >
-                <AnimatedCard>
-                  <FeatureCard
-                    icon={<Wind size={24} />}
-                    title="Instant Resizing"
-                    description="Start with presets for posts, stories, and more. Your design adapts instantly."
-                  />
-                </AnimatedCard>
-              </div>
-              <div
-                className="scroll-animate"
+                Turn Words into Visuals.
+              </h1>
+              <p
                 style={{ animationDelay: "0.4s" }}
+                className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-base text-gray-300 sm:text-lg md:text-xl"
               >
-                <AnimatedCard>
-                  <FeatureCard
-                    icon={<Download size={24} />}
-                    title="One-Click Export"
-                    description="Download your creation as a high-quality PNG or get all sizes in a single ZIP file."
-                  />
-                </AnimatedCard>
+                Because your brilliant thoughts deserve to look better than a
+                default tweet.
+              </p>
+              <div
+                style={{ animationDelay: "0.6s" }}
+                className="animate-fade-in-up mt-10"
+              >
+                <Link
+                  href="/editor"
+                  className="inline-block transform rounded-lg bg-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all hover:scale-110 hover:bg-indigo-500 active:scale-100"
+                >
+                  Create Quote Now &rarr;
+                </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Showcase Gallery Section */}
-        <section id="showcase" className="bg-gray-900/50 px-8 py-20">
-          <div className="mx-auto max-w-6xl">
-            <div className="scroll-animate mb-12 text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Designed for Impact.
-              </h2>
-              <p className="mt-4 text-gray-400">
-                Create share-worthy content that stops the scroll.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {examples.map((example, index) => (
+          {/* Features Section */}
+          <section id="features" className="px-8 py-20">
+            <div className="mx-auto max-w-6xl">
+              <div className="scroll-animate mb-12 text-center">
+                <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                  Everything you need. Nothing you don&apos;t.
+                </h2>
+                <p className="mt-4 text-gray-400">
+                  A focused toolset to get you from idea to image in record
+                  time.
+                </p>
+              </div>
+              {/* The grid is now responsive */}
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div
-                  key={index}
                   className="scroll-animate"
-                  style={{ animationDelay: `${(index + 1) * 0.15}s` }}
+                  style={{ animationDelay: "0.1s" }}
                 >
                   <AnimatedCard>
-                    <div className="group relative aspect-[4/5] overflow-hidden rounded-lg">
-                      <img
-                        src={example.imageUrl}
-                        alt={`Example quote card ${index + 1}`}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute inset-0 flex items-center justify-center p-8">
-                        <p
-                          className={`text-center text-2xl font-semibold text-white ${example.fontClass} text-shadow-lg`}
-                        >
-                          &quot;{example.quote}&quot;
-                        </p>
-                      </div>
-                    </div>
+                    <FeatureCard
+                      icon={<Image size={24} />}
+                      title="Dynamic Backgrounds"
+                      description="Choose from solid colors or millions of high-quality images from Unsplash."
+                    />
                   </AnimatedCard>
                 </div>
-              ))}
+                <div
+                  className="scroll-animate"
+                  style={{ animationDelay: "0.2s" }}
+                >
+                  <AnimatedCard>
+                    <FeatureCard
+                      icon={<Type size={24} />}
+                      title="Curated Fonts"
+                      description="Access a hand-picked selection of beautiful fonts perfect for making a statement."
+                    />
+                  </AnimatedCard>
+                </div>
+                <div
+                  className="scroll-animate"
+                  style={{ animationDelay: "0.3s" }}
+                >
+                  <AnimatedCard>
+                    <FeatureCard
+                      icon={<Wind size={24} />}
+                      title="Instant Resizing"
+                      description="Start with presets for posts, stories, and more. Your design adapts instantly."
+                    />
+                  </AnimatedCard>
+                </div>
+                <div
+                  className="scroll-animate"
+                  style={{ animationDelay: "0.4s" }}
+                >
+                  <AnimatedCard>
+                    <FeatureCard
+                      icon={<Download size={24} />}
+                      title="One-Click Export"
+                      description="Download your creation as a high-quality PNG or get all sizes in a single ZIP file."
+                    />
+                  </AnimatedCard>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+
+          {/* Showcase Gallery Section */}
+          <section id="showcase" className="bg-gray-900/50 px-8 py-20">
+            <div className="mx-auto max-w-6xl">
+              <div className="scroll-animate mb-12 text-center">
+                <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                  Designed for Impact.
+                </h2>
+                <p className="mt-4 text-gray-400">
+                  Create share-worthy content that stops the scroll.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {examples.map((example, index) => (
+                  <div
+                    key={index}
+                    className="scroll-animate"
+                    style={{ animationDelay: `${(index + 1) * 0.15}s` }}
+                  >
+                    <AnimatedCard>
+                      <div className="group relative aspect-[4/5] overflow-hidden rounded-lg">
+                        <img
+                          src={example.imageUrl}
+                          alt={`Example quote card ${index + 1}`}
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div className="absolute inset-0 flex items-center justify-center p-8">
+                          <p
+                            className={`text-center text-2xl font-semibold text-white ${example.fontClass} text-shadow-lg`}
+                          >
+                            &quot;{example.quote}&quot;
+                          </p>
+                        </div>
+                      </div>
+                    </AnimatedCard>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <div className="lg:hidden">
+        <MobileBlocker />
+      </div>
     </>
   );
 }
