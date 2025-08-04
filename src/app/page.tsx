@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 "use client";
 
-// ... (imports and component definitions remain the same)
 import Link from "next/link";
 import { Image, Wind, Download, Type } from "lucide-react";
 import LandingNavbar from "~/components/layout/LandingNavbar";
