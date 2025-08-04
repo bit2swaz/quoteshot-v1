@@ -2,19 +2,19 @@
 
 import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
-import quotesData from "~/data/quotes.json"; // Import our new quotes data
+import quotesData from "~/data/quotes.json";
 
 const TextControl = () => {
   const { text, setText } = useCanvasStore();
 
   const handleGenerate = () => {
-    // Pick a random quote from the imported data
     const randomIndex = Math.floor(Math.random() * quotesData.length);
-    const randomQuote = quotesData[randomIndex]?.quote;
+    const randomQuoteData = quotesData[randomIndex];
 
-    if (randomQuote) {
-      // Update the text in the store with the new quote
-      setText(randomQuote);
+    if (randomQuoteData) {
+      // Format the quote with quotation marks, a new line, and the author
+      const formattedQuote = `“${randomQuoteData.quote}”\n\n— ${randomQuoteData.author}`;
+      setText(formattedQuote);
     }
   };
 
