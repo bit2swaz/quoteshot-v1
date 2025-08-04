@@ -7,8 +7,7 @@ import BackgroundControl from "~/components/editor/controls/BackgroundControl";
 
 const Sidebar = () => {
   return (
-    // This sidebar is now hidden by default and only shown on large screens
-    <aside className="fixed top-16 left-0 z-10 hidden h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6 lg:block">
+    <aside className="fixed top-16 left-0 z-10 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6">
       <div className="space-y-6">
         <TextControl />
         <div className="h-px bg-gray-700"></div>
