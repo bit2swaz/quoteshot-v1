@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// Define the initial state as a constant so we can reuse it for resetting
 const initialState = {
   width: 1080,
   height: 1080,
   backgroundColor: "#1a202c",
   backgroundImage: null,
-  text: "The journey of a thousand miles begins with a single step.",
+  text: "“The journey of a thousand miles begins with a single step.”\n\n— Lao Tzu",
   fontSize: 64,
   fontFamily: "Inter",
   textColor: "#ffffff",
@@ -15,8 +14,13 @@ const initialState = {
   textY: 100,
 };
 
+// Define the possible panels that can be open on mobile
+type MobilePanel = "text" | "style" | "background" | null;
+
 interface CanvasState {
+  activeMobilePanel: MobilePanel; // New state for mobile UI
   isWelcomeModalOpen: boolean;
+  // ... other state properties
   width: number;
   height: number;
   backgroundColor: string;
@@ -29,10 +33,11 @@ interface CanvasState {
   textY: number;
 }
 
-// The CanvasActions interface is now simpler and more accurate.
 interface CanvasActions {
+  setActiveMobilePanel: (panel: MobilePanel) => void; // New action
   closeWelcomeModal: () => void;
   resetState: () => void;
+  // ... other actions
   setWidth: (width: number) => void;
   setHeight: (height: number) => void;
   setText: (text: string) => void;
@@ -45,14 +50,15 @@ interface CanvasActions {
   clearBackgroundImage: () => void;
 }
 
-// The generic type is now correct: `CanvasState & CanvasActions`
 export const useCanvasStore = create<CanvasState & CanvasActions>()(
   persist(
     (set) => ({
       ...initialState,
+      activeMobilePanel: null, // Default to no panel being open
       isWelcomeModalOpen: true,
 
       // --- ACTIONS ---
+      setActiveMobilePanel: (panel) => set({ activeMobilePanel: panel }),
       closeWelcomeModal: () => set({ isWelcomeModalOpen: false }),
       resetState: () => set(initialState),
       setWidth: (width) => set({ width }),
@@ -73,7 +79,8 @@ export const useCanvasStore = create<CanvasState & CanvasActions>()(
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !["isWelcomeModalOpen"].includes(key),
+            ([key]) =>
+              !["isWelcomeModalOpen", "activeMobilePanel"].includes(key),
           ),
         ),
     },
