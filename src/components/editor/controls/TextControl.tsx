@@ -13,7 +13,7 @@ const TextControl = () => {
 
     if (randomQuoteData) {
       // Format the quote with quotation marks, a new line, and the author
-      const formattedQuote = `“${randomQuoteData.quote}”\n\n— ${randomQuoteData.author}`;
+      const formattedQuote = `“${randomQuoteData.quote}”\n— ${randomQuoteData.author}`;
       setText(formattedQuote);
     }
   };
