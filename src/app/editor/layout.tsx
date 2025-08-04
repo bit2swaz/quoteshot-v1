@@ -1,4 +1,3 @@
-// src/app/editor/layout.tsx
 "use client";
 
 import React from "react";
