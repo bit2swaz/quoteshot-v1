@@ -3,12 +3,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  // Get the search query from the URL parameters
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("query");
+  const page = searchParams.get("page") || "1"; // Get the page number, default to 1
 
   if (!query) {
     return NextResponse.json(
@@ -26,9 +28,10 @@ export async function GET(request: Request) {
     );
   }
 
+  // Add the page parameter to the Unsplash API URL
   const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
     query,
-  )}&per_page=9&orientation=squarish`;
+  )}&per_page=9&orientation=squarish&page=${page}`;
 
   try {
     const response = await fetch(url, {
@@ -43,7 +46,6 @@ export async function GET(request: Request) {
 
     const data = await response.json();
 
-    // We only need the image URLs, so we'll extract them.
     const imageUrls = data.results.map((photo: any) => photo.urls.regular);
 
     return NextResponse.json(imageUrls);
