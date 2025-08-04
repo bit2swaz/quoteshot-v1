@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-// src/components/editor/controls/BackgroundControl.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -14,26 +14,42 @@ const BackgroundControl = () => {
   const [searchQuery, setSearchQuery] = useState("Nature");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadMoreLoading, setIsLoadMoreLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const fetchImages = async (query: string, pageNum: number) => {
+    try {
+      const response = await fetch(
+        `/api/unsplash?query=${query}&page=${pageNum}`,
+      );
+      if (!response.ok) throw new Error("Failed to fetch images");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return []; // Return empty array on error
+    }
+  };
+
+  const handleNewSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery) return;
 
     setIsLoading(true);
     setSearchResults([]);
-    try {
-      const response = await fetch(`/api/unsplash?query=${searchQuery}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch images");
-      }
-      const data = await response.json();
-      setSearchResults(data);
-    } catch (error) {
-      console.error(error);
-      // You could show an error message to the user here
-    } finally {
-      setIsLoading(false);
-    }
+    setPage(1);
+
+    const newImages = await fetchImages(searchQuery, 1);
+    setSearchResults(newImages);
+    setPage(2); // Set page to 2 for the next "load more" click
+    setIsLoading(false);
+  };
+
+  const handleLoadMore = async () => {
+    setIsLoadMoreLoading(true);
+    const moreImages = await fetchImages(searchQuery, page);
+    setSearchResults((prevResults) => [...prevResults, ...moreImages]);
+    setPage((prevPage) => prevPage + 1);
+    setIsLoadMoreLoading(false);
   };
 
   return (
@@ -66,7 +82,7 @@ const BackgroundControl = () => {
         >
           Search Unsplash
         </label>
-        <form onSubmit={handleSearch} className="mt-1 flex gap-2">
+        <form onSubmit={handleNewSearch} className="mt-1 flex gap-2">
           <input
             id="unsplash-search"
             type="text"
@@ -77,7 +93,8 @@ const BackgroundControl = () => {
           />
           <button
             type="submit"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+            disabled={isLoading}
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
           >
             {isLoading ? "..." : "Go"}
           </button>
@@ -91,7 +108,7 @@ const BackgroundControl = () => {
             <button
               key={url}
               onClick={() => setBackgroundImage(url)}
-              className="aspect-square overflow-hidden rounded-md bg-gray-600"
+              className="aspect-square overflow-hidden rounded-md bg-gray-600 transition hover:opacity-80"
             >
               <img
                 src={url}
@@ -101,6 +118,17 @@ const BackgroundControl = () => {
             </button>
           ))}
         </div>
+      )}
+
+      {/* Load More Button */}
+      {searchResults.length > 0 && !isLoading && (
+        <button
+          onClick={handleLoadMore}
+          disabled={isLoadMoreLoading}
+          className="w-full rounded-lg bg-gray-700 px-4 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-600 disabled:opacity-50"
+        >
+          {isLoadMoreLoading ? "Loading..." : "Load More"}
+        </button>
       )}
     </div>
   );
