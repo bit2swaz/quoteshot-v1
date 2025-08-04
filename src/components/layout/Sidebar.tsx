@@ -5,12 +5,10 @@ import TextControl from "~/components/editor/controls/TextControl";
 import StyleControl from "~/components/editor/controls/StyleControl";
 import BackgroundControl from "~/components/editor/controls/BackgroundControl";
 
-const Sidebar = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
+const Sidebar = () => {
   return (
-    // Use translate to slide in/out on mobile, and fixed position on desktop
-    <aside
-      className={`fixed top-16 left-0 z-20 h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
-    >
+    // This sidebar is now hidden by default and only shown on large screens
+    <aside className="fixed top-16 left-0 z-10 hidden h-[calc(100vh-4rem)] w-80 overflow-y-auto border-r border-gray-700 bg-gray-800 p-6 lg:block">
       <div className="space-y-6">
         <TextControl />
         <div className="h-px bg-gray-700"></div>

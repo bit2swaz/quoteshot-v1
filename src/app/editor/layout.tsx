@@ -45,15 +45,10 @@ export default function EditorLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 text-white">
-      <Navbar
-        isSidebarOpen={false}
-        toggleSidebar={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <Navbar />
       <div className="flex flex-1 pt-16">
         {/* Desktop Sidebar */}
-        <Sidebar isSidebarOpen={false} />
+        <Sidebar />
         {/* Main content area now has padding for the mobile tab bar */}
         <main className="flex-1 pb-16 lg:ml-80 lg:pb-0">{children}</main>
       </div>
