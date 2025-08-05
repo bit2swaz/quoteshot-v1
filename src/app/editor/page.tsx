@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import React from "react";
 import { useCanvasStore } from "~/store/canvasStore";
 import WelcomeModal from "~/components/editor/WelcomeModal";
-import MobileBlocker from "~/components/layout/MobileBlocker"; // Import the blocker
+import MobileBlocker from "~/components/layout/MobileBlocker";
 
 const ClientOnlyEditor = dynamic(
   () => import("~/components/editor/ClientOnlyEditor"),
@@ -21,13 +21,13 @@ export default function EditorPage() {
 
   return (
     <>
-      {/* Desktop Content: Hidden on screens smaller than lg */}
+      {/* Desktop Content: This will be hidden on screens smaller than 'lg' */}
       <div className="hidden h-full w-full lg:block">
         <ClientOnlyEditor />
         {isWelcomeModalOpen && <WelcomeModal />}
       </div>
 
-      {/* Mobile Blocker: Only visible on screens smaller than lg */}
+      {/* Mobile Blocker: This will only be visible on screens smaller than 'lg' */}
       <div className="lg:hidden">
         <MobileBlocker />
       </div>

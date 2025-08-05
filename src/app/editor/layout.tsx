@@ -4,6 +4,7 @@ import React from "react";
 import Navbar from "~/components/layout/Navbar";
 import Sidebar from "~/components/layout/Sidebar";
 import Footer from "~/components/layout/Footer";
+import MobileBlocker from "~/components/layout/MobileBlocker";
 
 export default function EditorLayout({
   children,
@@ -11,17 +12,24 @@ export default function EditorLayout({
   children: React.ReactNode;
 }) {
   return (
-    // This wrapper is for the desktop-only view
-    <div className="hidden min-h-screen bg-gray-900 text-white lg:block">
-      <Navbar />
-      <Sidebar />
-      {/* This div wraps all content to the right of the sidebar */}
-      <div className="ml-80 flex flex-col" style={{ height: "100vh" }}>
-        {/* The main content area grows to fill space, pushing the footer down */}
-        <main className="flex-1 overflow-y-auto pt-16">{children}</main>
-        {/* The footer is now inside the container with the correct left margin */}
-        <Footer />
+    <>
+      {/* Desktop Layout: Hidden on screens smaller than 'lg' */}
+      <div className="hidden min-h-screen flex-col bg-gray-900 text-white lg:flex">
+        <Navbar />
+        <div className="flex flex-1 pt-16">
+          <Sidebar />
+          <main className="ml-80 flex flex-1 flex-col">
+            {/* This makes the main content area fill available space */}
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </main>
+        </div>
       </div>
-    </div>
+
+      {/* Mobile Blocker: Only visible on screens smaller than 'lg' */}
+      <div className="lg:hidden">
+        <MobileBlocker />
+      </div>
+    </>
   );
 }
