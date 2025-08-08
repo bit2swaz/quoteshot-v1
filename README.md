@@ -1,3 +1,7 @@
+> **⚠️ Project Archived: This project is no longer under active development.**
+>
+> This repository is kept for historical and educational purposes. The live demo may be taken down at any time. Thank you for your interest!
+
 # ✨ QuoteShot
 
 > Because your brilliant thoughts deserve to look better than a default tweet.
@@ -10,11 +14,15 @@ _![demo](public/demo.jpeg)_
 
 ---
 
-## 🎯 About The Project
+## 🎯 About This Project & The Pivot
 
-This project was built as an MVP to showcase a polished, real-world application using a modern tech stack. The goal was to go beyond a simple to-do list and create a delightful, useful tool that could serve as the foundation for a full-fledged SaaS product.
+This project was built as a personal challenge to create a polished, real-world application from scratch. The goal was to go beyond a simple to-do list and build a delightful, useful tool that could serve as the foundation for a full-fledged SaaS product. `quoteshot` was a success in that regard—it taught me invaluable lessons about product design, development, and shipping.
 
-The entire development process, from initial concept to the final polished MVP, was a collaborative effort between [bit2swaz](https://github.com/bit2swaz) and a peer-programming AI.
+However, the most critical lesson I learned was about **founder-market fit**. Building for a general audience is tough; building for an audience you are a part of gives you an unfair advantage.
+
+For that reason, I have made the strategic decision to archive `quoteshot` and go all-in on a new mission that I am deeply passionate about: **`CodeCompass`**, an AI-powered learning engine designed to help developers like myself navigate their careers.
+
+The journey building `quoteshot` was the perfect training ground. Now, the main event begins. You can follow my journey building `CodeCompass` in public on **[X/Twitter @bit2swaz](https://twitter.com/bit2swaz)**.
 
 ### ✅ Key Features (MVP)
 
@@ -50,70 +58,31 @@ To get a local copy up and running, follow these simple steps.
 
 ### Installation
 
-1.  **Clone the repo**
-    ```sh
-    git clone https://github.com/bit2swaz/quoteshot-v1.git
-    ```
-2.  **Install PNPM packages**
-    ```sh
-    pnpm install
-    ```
-3.  **Set up your environment variables**
-    - Create a file named `.env.local` in the root of the project.
-    - Get a free API key from [Unsplash Developers](https://unsplash.com/developers).
-    - Add your key to the `.env.local` file:
-      ```
-      NEXT_PUBLIC_UNSPLASH_ACCESS_KEY='your_unsplash_access_key'
-      ```
-4.  **Run the development server**
-    ```sh
-    pnpm dev
-    ```
-    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1.  **Clone the repo**
+    `sh
+    git clone [https://github.com/bit2swaz/quoteshot-v1.git](https://github.com/bit2swaz/quoteshot-v1.git)
+    `
+2.  **Install PNPM packages**
+    `sh
+    pnpm install
+    `
+3.  **Set up your environment variables**
+    - Create a file named `.env.local` in the root of the project.
+    - Get a free API key from [Unsplash Developers](https://unsplash.com/developers).
+    - Add your key to the `.env.local` file:
+      `      NEXT_PUBLIC_UNSPLASH_ACCESS_KEY='your_unsplash_access_key'
+     `
+4.  **Run the development server**
+    `sh
+    pnpm dev
+    `
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ---
 
-## 🗺️ Roadmap
+## 🤝 A Note on Contributions
 
-This MVP is just the beginning. The following is the roadmap to evolve QuoteShot into a full SaaS product.
-
-### ✅ Week 1: Launch the Banger MVP
-
-- [x] Launch a polished, free-to-use quote generator.
-- [x] Validate the core concept and gather initial feedback.
-
-### 🔲 Week 2: User Accounts & Cloud Foundation
-
-- [ ] **Authentication:** Implement `NextAuth.js` with social logins.
-- [ ] **Database:** Set up Prisma for `User` and `Design` models.
-- [ ] **Cloud Saving:** Build tRPC endpoints to save designs to a user's account.
-- [ ] **Dashboard:** Create a protected page for users to view their saved designs.
-
-### 🔲 Week 3: Premium Monetization
-
-- [ ] **Payments:** Integrate Stripe for monthly/annual subscriptions.
-- [ ] **Premium Assets:** Add exclusive fonts and background packs.
-- [ ] **Premium Features:** Build a Gradient Generator, Custom Resolution input, and Brand Kit features for paying users.
-
-### 🔲 Week 4: Full SaaS Launch
-
-- [ ] **Marketing Pages:** Build out `/pricing`, `/about`, and `/contact` pages.
-- [ ] **Refine Landing Page:** Update the homepage to highlight premium features.
-- [ ] **Launch\!** Announce the full version across social channels.
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+As this project is now archived, I am no longer accepting new contributions or pull requests. Thank you to everyone who showed interest. The best way to contribute now is to follow and support the journey with `CodeCompass`.
 
 ---
 
