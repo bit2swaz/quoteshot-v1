@@ -22,7 +22,7 @@ However, the most critical lesson I learned was about **founder-market fit**. Bu
 
 For that reason, I have made the strategic decision to archive `QuoteShot` and go all-in on a new mission that I am deeply passionate about: **`CodeCompass`**, an AI-powered learning engine designed to help developers like myself navigate their careers.
 
-The journey building `quoteshot` was the perfect training ground. Now, the main event begins. You can follow my journey building `CodeCompass` in public on **[X @bit2swaz](https://x.com/bit2swaz)**.
+The journey building `QuoteShot` was the perfect training ground. Now, the main event begins. You can follow my journey building `CodeCompass` in public on **[X @bit2swaz](https://x.com/bit2swaz)**.
 
 ### ✅ Key Features (MVP)
 
