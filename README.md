@@ -16,13 +16,13 @@ _![demo](public/demo.jpeg)_
 
 ## 🎯 About This Project & The Pivot
 
-This project was built as a personal challenge to create a polished, real-world application from scratch. The goal was to go beyond a simple to-do list and build a delightful, useful tool that could serve as the foundation for a full-fledged SaaS product. `quoteshot` was a success in that regard—it taught me invaluable lessons about product design, development, and shipping.
+This project was built as a personal challenge to create a polished, real-world application from scratch. The goal was to go beyond a simple to-do list and build a delightful, useful tool that could serve as the foundation for a full-fledged SaaS product. `QuoteShot` was a success in that regard—it taught me invaluable lessons about product design, development, and shipping.
 
 However, the most critical lesson I learned was about **founder-market fit**. Building for a general audience is tough; building for an audience you are a part of gives you an unfair advantage.
 
-For that reason, I have made the strategic decision to archive `quoteshot` and go all-in on a new mission that I am deeply passionate about: **`CodeCompass`**, an AI-powered learning engine designed to help developers like myself navigate their careers.
+For that reason, I have made the strategic decision to archive `QuoteShot` and go all-in on a new mission that I am deeply passionate about: **`CodeCompass`**, an AI-powered learning engine designed to help developers like myself navigate their careers.
 
-The journey building `quoteshot` was the perfect training ground. Now, the main event begins. You can follow my journey building `CodeCompass` in public on **[X/Twitter @bit2swaz](https://twitter.com/bit2swaz)**.
+The journey building `quoteshot` was the perfect training ground. Now, the main event begins. You can follow my journey building `CodeCompass` in public on **[X @bit2swaz](https://x.com/bit2swaz)**.
 
 ### ✅ Key Features (MVP)
 
